@@ -1,0 +1,320 @@
+#!/bin/bash
+# Fedora Config - Omakub-inspired configuration menu
+
+DOTFILES_DIR="$HOME/dotfiles"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Header
+show_header() {
+    clear
+    echo -e "${CYAN}╔══════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║        Fedora Configuration Menu         ║${NC}"
+    echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
+    echo
+}
+
+# Main menu
+main_menu() {
+    show_header
+    echo -e "${GREEN}What would you like to do?${NC}"
+    echo
+    echo "  1) 🎨 Change Theme"
+    echo "  2) 🔧 Configure Extensions"
+    echo "  3) 📦 Install Additional Software"
+    echo "  4) ⌨️  Set Keyboard Shortcuts"
+    echo "  5) 🔄 Update System"
+    echo "  6) 📂 Configure OneDrive Sync"
+    echo "  7) 🐙 Push Dotfiles to GitHub"
+    echo "  8) 📖 View Documentation"
+    echo "  9) 🚀 Quick Actions"
+    echo "  0) Exit"
+    echo
+    read -p "Enter your choice: " choice
+    
+    case $choice in
+        1) change_theme ;;
+        2) configure_extensions ;;
+        3) install_software ;;
+        4) set_shortcuts ;;
+        5) update_system ;;
+        6) configure_onedrive ;;
+        7) push_dotfiles ;;
+        8) view_docs ;;
+        9) quick_actions ;;
+        0) exit 0 ;;
+        *) echo "Invalid option"; sleep 2; main_menu ;;
+    esac
+}
+
+# Theme changer
+change_theme() {
+    show_header
+    echo -e "${PURPLE}Select a theme:${NC}"
+    echo
+    echo "  1) 🌙 Dark Mode (current)"
+    echo "  2) ☀️  Light Mode"
+    echo "  3) 🌆 Auto (follow sunrise/sunset)"
+    echo "  4) ← Back"
+    echo
+    read -p "Enter your choice: " theme_choice
+    
+    case $theme_choice in
+        1) 
+            dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+            echo -e "${GREEN}✓ Dark mode enabled${NC}"
+            ;;
+        2) 
+            dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+            echo -e "${GREEN}✓ Light mode enabled${NC}"
+            ;;
+        3)
+            dconf write /org/gnome/desktop/interface/color-scheme "'default'"
+            echo -e "${GREEN}✓ Auto mode enabled${NC}"
+            ;;
+        4) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Extension configuration
+configure_extensions() {
+    show_header
+    echo -e "${PURPLE}Extension Configuration:${NC}"
+    echo
+    echo "  1) 📊 Configure Dash to Panel"
+    echo "  2) 🪟 Configure Auto Move Windows"
+    echo "  3) 🔄 Re-apply All Extension Settings"
+    echo "  4) 🛍️ Open Extension Manager"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " ext_choice
+    
+    case $ext_choice in
+        1)
+            echo "Opening Dash to Panel preferences..."
+            gnome-extensions prefs dash-to-panel@jderose9.github.com &
+            ;;
+        2)
+            echo "Opening Auto Move Windows preferences..."
+            gnome-extensions prefs auto-move-windows@gnome-shell-extensions.gcampax.github.com &
+            ;;
+        3)
+            bash "$DOTFILES_DIR/scripts/setup-extensions.sh"
+            ;;
+        4)
+            gnome-extensions-app &
+            ;;
+        5) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Software installer
+install_software() {
+    show_header
+    echo -e "${PURPLE}Install Additional Software:${NC}"
+    echo
+    echo "  1) 🌐 Development Tools (VS Code, Docker, etc.)"
+    echo "  2) 🎮 Media & Entertainment (Spotify, VLC, etc.)"
+    echo "  3) 🛠️ System Utilities (htop, neofetch, etc.)"
+    echo "  4) 📝 Productivity Apps (Obsidian, Notion, etc.)"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " soft_choice
+    
+    case $soft_choice in
+        1)
+            echo "Installing development tools..."
+            sudo dnf install -y code docker-ce docker-compose nodejs npm
+            ;;
+        2)
+            echo "Installing media apps..."
+            flatpak install -y spotify vlc
+            ;;
+        3)
+            echo "Installing system utilities..."
+            sudo dnf install -y htop btop fastfetch tldr bat
+            ;;
+        4)
+            echo "Opening browser for productivity apps..."
+            xdg-open "https://obsidian.md/download"
+            ;;
+        5) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Keyboard shortcuts
+set_shortcuts() {
+    show_header
+    echo -e "${PURPLE}Keyboard Shortcuts:${NC}"
+    echo
+    echo "  1) 🪟 Apply Windows-like shortcuts"
+    echo "  2) 🍎 Apply macOS-like shortcuts"
+    echo "  3) 🐧 Keep Linux defaults"
+    echo "  4) 📋 View current shortcuts"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " key_choice
+    
+    case $key_choice in
+        1)
+            echo "Applying Windows-like shortcuts..."
+            dconf write /org/gnome/desktop/wm/keybindings/close "['<Alt>F4']"
+            dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
+            dconf write /org/gnome/settings-daemon/plugins/media-keys/terminal "['<Control><Alt>t']"
+            echo -e "${GREEN}✓ Windows shortcuts applied${NC}"
+            ;;
+        2)
+            echo "Applying macOS-like shortcuts..."
+            dconf write /org/gnome/desktop/wm/keybindings/close "['<Super>q']"
+            dconf write /org/gnome/desktop/wm/keybindings/minimize "['<Super>m']"
+            echo -e "${GREEN}✓ macOS shortcuts applied${NC}"
+            ;;
+        3)
+            echo "Keeping Linux defaults..."
+            ;;
+        4)
+            echo "Opening Settings > Keyboard..."
+            gnome-control-center keyboard &
+            ;;
+        5) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# System updater
+update_system() {
+    show_header
+    echo -e "${YELLOW}Updating system...${NC}"
+    echo
+    
+    # Update DNF packages
+    echo "📦 Updating system packages..."
+    sudo dnf update -y
+    
+    # Update Flatpaks
+    if command -v flatpak &> /dev/null; then
+        echo "📦 Updating Flatpaks..."
+        flatpak update -y
+    fi
+    
+    # Update dotfiles
+    echo "🔄 Updating dotfiles..."
+    cd "$DOTFILES_DIR" && git pull
+    
+    echo
+    echo -e "${GREEN}✓ System updated!${NC}"
+    read -p "Press Enter to continue..."
+    main_menu
+}
+
+# OneDrive configuration
+configure_onedrive() {
+    show_header
+    echo -e "${PURPLE}OneDrive Configuration:${NC}"
+    echo
+    echo "  1) 🔐 Authenticate OneDrive"
+    echo "  2) 📝 Edit Sync List"
+    echo "  3) 🔄 Start Sync Service"
+    echo "  4) 🛑 Stop Sync Service"
+    echo "  5) 📊 View Sync Status"
+    echo "  6) ← Back"
+    echo
+    read -p "Enter your choice: " od_choice
+    
+    case $od_choice in
+        1) onedrive ;;
+        2) ${EDITOR:-nano} ~/.config/onedrive/sync_list ;;
+        3) systemctl --user start onedrive ;;
+        4) systemctl --user stop onedrive ;;
+        5) systemctl --user status onedrive ;;
+        6) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Push dotfiles
+push_dotfiles() {
+    show_header
+    echo -e "${YELLOW}Pushing dotfiles to GitHub...${NC}"
+    cd "$DOTFILES_DIR"
+    git add -A
+    echo
+    read -p "Enter commit message: " msg
+    git commit -m "$msg"
+    git push
+    echo -e "${GREEN}✓ Dotfiles pushed!${NC}"
+    sleep 2
+    main_menu
+}
+
+# View documentation
+view_docs() {
+    show_header
+    echo -e "${PURPLE}Documentation:${NC}"
+    echo
+    echo "  1) 📖 View README"
+    echo "  2) 📋 View CLAUDE.md"
+    echo "  3) 📝 View Changelog"
+    echo "  4) 🌐 Open GitHub Repo"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " doc_choice
+    
+    case $doc_choice in
+        1) less "$DOTFILES_DIR/README.md" ;;
+        2) less "$DOTFILES_DIR/CLAUDE.md" ;;
+        3) less "$DOTFILES_DIR/CHANGELOG.md" ;;
+        4) xdg-open "https://github.com/$(git config user.name)/dotfiles" ;;
+        5) main_menu ;;
+    esac
+    main_menu
+}
+
+# Quick actions
+quick_actions() {
+    show_header
+    echo -e "${PURPLE}Quick Actions:${NC}"
+    echo
+    echo "  1) 🔄 Restart GNOME Shell (X11 only)"
+    echo "  2) 🚪 Log Out"
+    echo "  3) 🖥️ Open System Monitor"
+    echo "  4) 🎛️ Open GNOME Tweaks"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " quick_choice
+    
+    case $quick_choice in
+        1)
+            if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+                killall -3 gnome-shell
+            else
+                echo "Not available on Wayland. Please log out instead."
+                sleep 2
+            fi
+            ;;
+        2) gnome-session-quit --logout ;;
+        3) gnome-system-monitor & ;;
+        4) gnome-tweaks & ;;
+        5) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Start the menu
+main_menu
