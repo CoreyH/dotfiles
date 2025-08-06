@@ -2,6 +2,8 @@
 
 My personal Fedora Workstation configuration for multi-machine setup.
 
+**Note**: This is a private repository for personal use.
+
 ## Quick Start
 
 ```bash
