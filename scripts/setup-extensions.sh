@@ -33,6 +33,19 @@ dconf write /org/gnome/shell/extensions/auto-move-windows/application-list "['1p
 echo ""
 echo "Extensions configured!"
 echo ""
-echo "NOTE: You may need to:"
-echo "1. Restart GNOME Shell (Alt+F2, type 'r', Enter)"
-echo "2. Or log out and log back in for all changes to take effect"
+
+# Check if running Wayland
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    echo "NOTE: Running on Wayland - you need to log out and back in"
+    echo "      for all changes to take effect."
+    echo ""
+    echo "Log out now? (y/n)"
+    read -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        gnome-session-quit --logout --no-prompt
+    fi
+else
+    echo "NOTE: Restart GNOME Shell (Alt+F2, type 'r', Enter)"
+    echo "      or log out and back in for all changes to take effect."
+fi
