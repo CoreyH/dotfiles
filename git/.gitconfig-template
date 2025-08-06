@@ -1,0 +1,14 @@
+[user]
+    name = YOUR_NAME
+    email = YOUR_EMAIL
+
+[core]
+    editor = vim
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+# GitHub CLI config will be handled separately with gh auth login
