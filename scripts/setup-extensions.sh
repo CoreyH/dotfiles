@@ -19,12 +19,38 @@ if [ -f "$HOME/dotfiles/gnome/extension-settings.ini" ]; then
     echo "  ✓ Extension settings applied"
 fi
 
+# Apply dash-to-panel specific settings
+if [ -f "$HOME/dotfiles/gnome/dash-to-panel-settings.ini" ]; then
+    echo "Applying Dash to Panel settings..."
+    dconf load / < "$HOME/dotfiles/gnome/dash-to-panel-settings.ini"
+    echo "  ✓ Dash to Panel settings applied"
+fi
+
 # Specific settings for dash-to-panel
 echo "Configuring Dash to Panel..."
-dconf write /org/gnome/shell/extensions/dash-to-panel/panel-positions '{"0":"TOP"}' 2>/dev/null || true
-dconf write /org/gnome/shell/extensions/dash-to-panel/panel-sizes '{"0":48}' 2>/dev/null || true
+
+# Get the primary monitor name (might be different on each system)
+MONITOR=$(dconf read /org/gnome/shell/extensions/dash-to-panel/primary-monitor 2>/dev/null | tr -d "'")
+if [ -z "$MONITOR" ]; then
+    # If no monitor set, use first available or default
+    MONITOR="0"
+fi
+
+# Core panel configuration
+dconf write /org/gnome/shell/extensions/dash-to-panel/panel-anchors "{\"$MONITOR\":\"MIDDLE\"}" 2>/dev/null || \
+    dconf write /org/gnome/shell/extensions/dash-to-panel/panel-anchors '{"0":"MIDDLE"}' 2>/dev/null || true
+
+dconf write /org/gnome/shell/extensions/dash-to-panel/panel-positions "{\"$MONITOR\":\"TOP\"}" 2>/dev/null || \
+    dconf write /org/gnome/shell/extensions/dash-to-panel/panel-positions '{"0":"TOP"}' 2>/dev/null || true
+
+dconf write /org/gnome/shell/extensions/dash-to-panel/panel-sizes "{\"$MONITOR\":48}" 2>/dev/null || \
+    dconf write /org/gnome/shell/extensions/dash-to-panel/panel-sizes '{"0":48}' 2>/dev/null || true
+
+# Additional settings for consistent appearance
 dconf write /org/gnome/shell/extensions/dash-to-panel/appicon-margin 4 2>/dev/null || true
 dconf write /org/gnome/shell/extensions/dash-to-panel/appicon-padding 4 2>/dev/null || true
+dconf write /org/gnome/shell/extensions/dash-to-panel/dot-position "'BOTTOM'" 2>/dev/null || true
+dconf write /org/gnome/shell/extensions/dash-to-panel/isolate-workspaces true 2>/dev/null || true
 
 # Configure Auto Move Windows for 1Password
 echo "Configuring Auto Move Windows..."
