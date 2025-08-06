@@ -62,13 +62,21 @@ gnome-extensions prefs [extension-name]
   - `~/setup-onedrive.sh` - Initial setup helper
   - `~/clean-restart-onedrive.sh` - Clean restart with selective sync
 
-### Dotfiles Management (GNU Stow + GitHub)
-- **Tool**: GNU Stow (standard, simple, popular)
-- **Storage**: GitHub repository for version control
-- **Method**: Symlinks managed by Stow
-- Each application gets its own folder in ~/dotfiles
-- Single command to apply on new machines: `stow bash gnome git`
-- See `sync-strategy.md` for detailed implementation
+### Dotfiles Management (GitHub Private Repo)
+- **Repository**: Private GitHub repo (security > sharing)
+- **Structure**: Organized by component:
+  - `packages/` - DNF package lists
+  - `scripts/` - Setup and helper scripts
+  - `gnome/` - GNOME settings and extensions
+  - `onedrive/` - OneDrive sync configuration
+  - `git/` - Git configuration templates
+- **Installation**: Clone and run `./install.sh`
+- **Workflow for new software**:
+  1. Install locally: `sudo dnf install package-name`
+  2. Add to `packages/dnf.txt`
+  3. Commit and push: `cd ~/dotfiles && git add -A && git commit -m "Add package" && git push`
+  4. On other machines: `cd ~/dotfiles && git pull && ./install.sh`
+- **Authentication**: Handled per-machine (gh auth, OneDrive auth, etc.)
 
 ### Other Sync Components
 - **Passwords**: 1Password (already configured)
@@ -76,9 +84,38 @@ gnome-extensions prefs [extension-name]
 - **System Settings**: dconf dumps stored in dotfiles repo
 
 ## Next Steps
-- Complete OneDrive selective sync setup (run `~/clean-restart-onedrive.sh`)
-- Configure GNU Stow for dotfiles management
-- Create GitHub dotfiles repository
+- Push dotfiles to GitHub (run `~/push-dotfiles-to-github.sh`)
+- Test replication on Fedora VM
 - Configure NAS mounting for cold storage
 - Answer setup questions in `fedora-setup-questions.md`
 - Configure remaining Windows/macOS-like features
+
+## Quick Reference
+
+### Replicate on New Machine
+```bash
+# Install gh and authenticate
+sudo dnf install -y gh
+gh auth login --web
+
+# Clone and install
+git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install.sh
+
+# Set up OneDrive
+onedrive  # Authenticate
+onedrive --sync --resync
+systemctl --user enable --now onedrive
+```
+
+### Add New Software
+```bash
+# Install locally
+sudo dnf install -y new-package
+
+# Add to dotfiles
+echo "new-package" >> ~/dotfiles/packages/dnf.txt
+cd ~/dotfiles
+git add -A && git commit -m "Add new-package" && git push
+```
