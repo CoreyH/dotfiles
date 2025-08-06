@@ -1,0 +1,52 @@
+{
+  "themes": [
+    {
+      "name": "Tokyo Night",
+      "dark": true,
+      "gnome_color": "#7aa2f7",
+      "wallpaper": "tokyo-night.jpg",
+      "terminal_theme": "tokyo-night",
+      "description": "Modern dark theme with blue/purple accents"
+    },
+    {
+      "name": "Catppuccin Mocha",
+      "dark": true,
+      "gnome_color": "#cba6f7",
+      "wallpaper": "catppuccin.jpg",
+      "terminal_theme": "catppuccin-mocha",
+      "description": "Soothing pastel dark theme"
+    },
+    {
+      "name": "Nord",
+      "dark": true,
+      "gnome_color": "#88c0d0",
+      "wallpaper": "nord.jpg",
+      "terminal_theme": "nord",
+      "description": "Arctic, north-bluish color palette"
+    },
+    {
+      "name": "Dracula",
+      "dark": true,
+      "gnome_color": "#bd93f9",
+      "wallpaper": "dracula.jpg",
+      "terminal_theme": "dracula",
+      "description": "Dark theme with vibrant colors"
+    },
+    {
+      "name": "Gruvbox",
+      "dark": true,
+      "gnome_color": "#fb4934",
+      "wallpaper": "gruvbox.jpg",
+      "terminal_theme": "gruvbox-dark",
+      "description": "Retro groove color scheme"
+    },
+    {
+      "name": "One Light",
+      "dark": false,
+      "gnome_color": "#4078f2",
+      "wallpaper": "one-light.jpg",
+      "terminal_theme": "one-light",
+      "description": "Clean, bright light theme"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Omakub-style menu for Fedora - alias to fedora-config for muscle memory
+
+# Just call fedora-config
+exec fedora-config "$@"

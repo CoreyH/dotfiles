@@ -31,6 +31,17 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 # ============================================
+# STEP 1.5: First Run Setup (if needed)
+# ============================================
+if [ ! -f ~/.config/fedora-setup/preferences.conf ]; then
+    echo ""
+    echo "[1.5/8] First-time setup..."
+    if [ -f "$DOTFILES_DIR/scripts/first-run.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/first-run.sh"
+    fi
+fi
+
+# ============================================
 # STEP 2: Install Software
 # ============================================
 echo ""
