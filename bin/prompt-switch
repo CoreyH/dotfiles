@@ -1,0 +1,31 @@
+#!/bin/bash
+# Quick prompt switcher
+
+case "$1" in
+    starship)
+        # Enable Starship
+        sed -i 's/^# eval "\$(starship init bash)"/eval "\$(starship init bash)"/' ~/.bashrc
+        echo "Starship prompt enabled!"
+        echo "Run: source ~/.bashrc"
+        ;;
+    custom|bash)
+        # Disable Starship
+        sed -i 's/^eval "\$(starship init bash)"/# eval "\$(starship init bash)"/' ~/.bashrc
+        echo "Custom bash prompt enabled!"
+        echo "Run: source ~/.bashrc"
+        ;;
+    powershell|ps)
+        # Disable Starship and use PowerShell style
+        sed -i 's/^eval "\$(starship init bash)"/# eval "\$(starship init bash)"/' ~/.bashrc
+        echo "PowerShell-style prompt enabled!"
+        echo "Run: source ~/dotfiles/bash/.bashrc.powershell-style"
+        ;;
+    *)
+        echo "Usage: prompt-switch [starship|custom|powershell]"
+        echo ""
+        echo "Available prompts:"
+        echo "  starship    - Modern prompt with icons"
+        echo "  custom      - Git-aware bash prompt (posh-git style)"
+        echo "  powershell  - PowerShell/posh-git style"
+        ;;
+esac

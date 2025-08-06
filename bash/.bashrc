@@ -163,9 +163,9 @@ export NVM_DIR="$HOME/.nvm"
 # Rust (if installed)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# Welcome message
-if [ -n "$PS1" ]; then
-    echo -e "${CYAN}Welcome to Fedora Linux${RESET}"
-    echo -e "Type ${GREEN}fedora-config${RESET} or ${GREEN}omakub${RESET} for configuration menu"
+# Welcome message (only in interactive shells)
+if [[ $- == *i* ]]; then
+    echo -e "\033[0;36mWelcome to Fedora Linux\033[0m"
+    echo -e "Type \033[0;32mfedora-config\033[0m or \033[0;32momakub\033[0m for configuration menu"
     echo
 fi

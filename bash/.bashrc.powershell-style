@@ -9,16 +9,16 @@ fi
 # Override with PowerShell-style prompt
 parse_git_status_porcelain() {
     local status=$(git status --porcelain 2>/dev/null)
-    local added=$(echo "$status" | grep -c "^A")
-    local modified=$(echo "$status" | grep -c "^ M")
-    local deleted=$(echo "$status" | grep -c "^ D")
-    local untracked=$(echo "$status" | grep -c "^??")
+    local added=$(echo "$status" | grep -c "^A" || echo "0")
+    local modified=$(echo "$status" | grep -c "^ M" || echo "0")
+    local deleted=$(echo "$status" | grep -c "^ D" || echo "0")
+    local untracked=$(echo "$status" | grep -c "^??" || echo "0")
     
     local result=""
-    [ $added -gt 0 ] && result="$result +$added"
-    [ $modified -gt 0 ] && result="$result ~$modified"
-    [ $deleted -gt 0 ] && result="$result -$deleted"
-    [ $untracked -gt 0 ] && result="$result ?$untracked"
+    [ "$added" -gt 0 ] && result="$result +$added"
+    [ "$modified" -gt 0 ] && result="$result ~$modified"
+    [ "$deleted" -gt 0 ] && result="$result -$deleted"
+    [ "$untracked" -gt 0 ] && result="$result ?$untracked"
     
     echo "$result"
 }
@@ -67,4 +67,4 @@ powershell_style_prompt() {
 # Set PowerShell-style prompt
 PROMPT_COMMAND='powershell_style_prompt'
 
-echo -e "${CYAN}PowerShell-style prompt activated${RESET}"
+echo -e "\033[0;36mPowerShell-style prompt activated\033[0m"
