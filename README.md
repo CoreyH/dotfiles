@@ -98,9 +98,16 @@ Quick commands for common tasks:
    systemctl --user enable --now onedrive
    ```
 
-3. **Sign in to Apps**:
-   - Microsoft Edge
-   - 1Password
+3. **Microsoft Edge Setup**:
+   - Sign in to each profile (7 profiles for different contexts)
+   - For each profile, manually set:
+     - Theme (Settings → Appearance → Theme)
+     - Downloads location
+     - 1Password extension verification
+   - See `docs/edge-setup.md` for detailed instructions
+
+4. **Sign in to Apps**:
+   - 1Password desktop app
    - GitHub CLI: `gh auth login --web`
 
 ## Updating

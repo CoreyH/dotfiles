@@ -1,5 +1,42 @@
 # Changelog
 
+## 2025-08-06 - Microsoft Edge Configuration
+
+### Added
+- **Edge Installation & Setup Documentation** (`docs/edge-setup.md`)
+  - Proper RPM installation method for 1Password compatibility
+  - Profile management for 7 different contexts
+  - Clear breakdown of what syncs vs manual configuration
+- **Edge Profile Configuration Script** (`scripts/configure-edge-profiles.sh`)
+  - Automated common settings across all profiles
+  - Desktop shortcut creation for each profile
+  - Theme, downloads, and privacy settings
+- **Edge Installation Script** (`scripts/install-edge.sh`)
+  - Ensures RPM installation (not Flatpak)
+  - Handles existing Flatpak installations
+- **Menu Integration**
+  - Added Edge configuration to `fedora-config` menu
+
+### Key Decisions
+- Must use RPM installation for 1Password browser extension compatibility
+- Accepted that some settings (theme, search) require manual configuration per profile
+- Created automation for repetitive settings while respecting Microsoft sync
+
+### Known Limitations
+- Microsoft account sign-in must be done manually per profile
+- Theme selection doesn't fully sync and needs manual setting
+- Search engine preference often overridden by account sync
+
+## 2025-08-06 - CLAUDE.md Synchronization
+
+### Fixed
+- Resolved CLAUDE.md file duplication issue
+- Created symlink from ~/CLAUDE.md to ~/dotfiles/CLAUDE.md
+- Ensured single source of truth for AI context
+
+### Changed
+- Claude Code should now be started from ~/dotfiles directory
+
 ## 2024-08-06 - Terminal and Prompt Enhancements
 
 ### Added

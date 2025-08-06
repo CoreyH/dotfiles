@@ -32,9 +32,10 @@ main_menu() {
     echo "  4) ⌨️  Set Keyboard Shortcuts"
     echo "  5) 🔄 Update System"
     echo "  6) 📂 Configure OneDrive Sync"
-    echo "  7) 🐙 Push Dotfiles to GitHub"
-    echo "  8) 📖 View Documentation"
-    echo "  9) 🚀 Quick Actions"
+    echo "  7) 🌐 Configure Edge Profiles"
+    echo "  8) 🐙 Push Dotfiles to GitHub"
+    echo "  9) 📖 View Documentation"
+    echo "  10) 🚀 Quick Actions"
     echo "  0) Exit"
     echo
     read -p "Enter your choice: " choice
@@ -46,9 +47,10 @@ main_menu() {
         4) set_shortcuts ;;
         5) update_system ;;
         6) configure_onedrive ;;
-        7) push_dotfiles ;;
-        8) view_docs ;;
-        9) quick_actions ;;
+        7) configure_edge ;;
+        8) push_dotfiles ;;
+        9) view_docs ;;
+        10) quick_actions ;;
         0) exit 0 ;;
         *) echo "Invalid option"; sleep 2; main_menu ;;
     esac
@@ -242,6 +244,47 @@ configure_onedrive() {
         4) systemctl --user stop onedrive ;;
         5) systemctl --user status onedrive ;;
         6) main_menu ;;
+    esac
+    sleep 2
+    main_menu
+}
+
+# Configure Edge profiles
+configure_edge() {
+    show_header
+    echo -e "${PURPLE}Edge Profile Configuration:${NC}"
+    echo
+    echo "  1) 🔧 Apply Common Settings to All Profiles"
+    echo "  2) 🚀 Launch Profile Manager"
+    echo "  3) 📝 Create Desktop Shortcuts"
+    echo "  4) 📖 View Edge Setup Guide"
+    echo "  5) ← Back"
+    echo
+    read -p "Enter your choice: " edge_choice
+    
+    case $edge_choice in
+        1)
+            if [ -f "$DOTFILES_DIR/scripts/configure-edge-profiles.sh" ]; then
+                bash "$DOTFILES_DIR/scripts/configure-edge-profiles.sh"
+            else
+                echo "Configuration script not found"
+            fi
+            ;;
+        2)
+            microsoft-edge --profile-directory="Default" &
+            ;;
+        3)
+            echo "Creating desktop shortcuts..."
+            bash -c "cd $DOTFILES_DIR && ./scripts/configure-edge-profiles.sh" <<< "y"
+            ;;
+        4)
+            if [ -f "$DOTFILES_DIR/docs/edge-setup.md" ]; then
+                less "$DOTFILES_DIR/docs/edge-setup.md"
+            else
+                echo "Edge setup guide not found"
+            fi
+            ;;
+        5) main_menu ;;
     esac
     sleep 2
     main_menu

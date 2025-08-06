@@ -83,12 +83,19 @@ gnome-extensions prefs [extension-name]
 - **Browser**: Microsoft Edge with account sync
 - **System Settings**: dconf dumps stored in dotfiles repo
 
-## Next Steps
-- Push dotfiles to GitHub (run `~/push-dotfiles-to-github.sh`)
-- Test replication on Fedora VM
-- Configure NAS mounting for cold storage
-- Answer setup questions in `fedora-setup-questions.md`
-- Configure remaining Windows/macOS-like features
+## Current Status (2025-08-06)
+
+### Completed Today
+- ✅ Fixed CLAUDE.md synchronization (symlinked to dotfiles)
+- ✅ Created comprehensive Edge setup documentation and scripts
+- ✅ Added Edge profile configuration to fedora-config menu
+- ✅ Documented RPM vs Flatpak installation requirements for 1Password
+
+### Remaining Tasks
+- Configure productivity shortcuts matching Windows/macOS muscle memory
+- Set up NAS mounting for cold storage access
+- Test complete multi-machine sync workflow
+- Answer remaining setup questions in `fedora-setup-questions.md`
 
 ## Quick Reference
 
