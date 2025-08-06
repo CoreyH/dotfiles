@@ -3,10 +3,8 @@ wget
 git
 vim
 htop
-neofetch
 gnome-tweaks
 gnome-extensions-app
-gnome-shell-extension-manager
 onedrive
 stow
 gh

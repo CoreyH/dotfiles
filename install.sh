@@ -39,7 +39,24 @@ echo "[2/8] Installing software..."
 # Install packages from list
 if [ -f "$DOTFILES_DIR/packages/dnf.txt" ]; then
     echo "Installing DNF packages..."
-    sudo dnf install -y $(cat "$DOTFILES_DIR/packages/dnf.txt")
+    # Install packages one by one to handle missing packages gracefully
+    while IFS= read -r package; do
+        if [ ! -z "$package" ] && [ "${package:0:1}" != "#" ]; then
+            echo "  Installing: $package"
+            sudo dnf install -y "$package" 2>/dev/null || echo "  ⚠ Package not found: $package"
+        fi
+    done < "$DOTFILES_DIR/packages/dnf.txt"
+fi
+
+# Try optional packages
+if [ -f "$DOTFILES_DIR/packages/optional.txt" ]; then
+    echo ""
+    echo "Attempting optional packages..."
+    while IFS= read -r package; do
+        if [ ! -z "$package" ] && [ "${package:0:1}" != "#" ]; then
+            sudo dnf install -y "$package" 2>/dev/null || true
+        fi
+    done < "$DOTFILES_DIR/packages/optional.txt"
 fi
 
 # Install third-party apps

@@ -1,0 +1,8 @@
+# Optional packages that might not be in all repos
+# Install these separately if needed
+
+# System info tool (neofetch alternative)
+fastfetch
+
+# Extension manager (might need flatpak)
+gnome-shell-extension-manager
