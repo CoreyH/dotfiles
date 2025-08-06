@@ -123,11 +123,23 @@ fi
 echo ""
 echo "[5/8] GNOME Extensions..."
 if [ -f "$DOTFILES_DIR/gnome/extensions.txt" ]; then
-    echo "Extensions to install manually:"
+    echo "Extensions to install:"
     cat "$DOTFILES_DIR/gnome/extensions.txt"
     echo ""
-    echo "Open Extension Manager after setup to install these."
-    read -p "Press Enter to continue..."
+    
+    # Check if extensions are already installed
+    if gnome-extensions list | grep -q "dash-to-panel"; then
+        echo "  ✓ Some extensions already installed"
+        # Try to configure them
+        if [ -f "$DOTFILES_DIR/scripts/setup-extensions.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/setup-extensions.sh"
+        fi
+    else
+        echo "After installing extensions via Extension Manager, run:"
+        echo "  ~/dotfiles/scripts/setup-extensions.sh"
+        echo ""
+        read -p "Press Enter to continue..."
+    fi
 fi
 
 # ============================================
