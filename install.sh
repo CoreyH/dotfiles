@@ -84,6 +84,12 @@ if [ -f "$DOTFILES_DIR/bash/.bashrc" ]; then
     echo "  ✓ .bashrc"
 fi
 
+# Bash aliases
+if [ -f "$DOTFILES_DIR/bash/.bash_aliases" ]; then
+    ln -sf "$DOTFILES_DIR/bash/.bash_aliases" ~/.bash_aliases
+    echo "  ✓ .bash_aliases"
+fi
+
 # Git config
 if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     ln -sf "$DOTFILES_DIR/git/.gitconfig" ~/.gitconfig
@@ -94,6 +100,25 @@ fi
 if [ -f "$DOTFILES_DIR/CLAUDE.md" ]; then
     ln -sf "$DOTFILES_DIR/CLAUDE.md" ~/CLAUDE.md
     echo "  ✓ CLAUDE.md"
+fi
+
+# User commands
+if [ -d "$DOTFILES_DIR/bin" ]; then
+    mkdir -p ~/bin
+    for cmd in "$DOTFILES_DIR/bin"/*; do
+        if [ -f "$cmd" ]; then
+            cmd_name=$(basename "$cmd")
+            ln -sf "$cmd" ~/bin/"$cmd_name"
+            chmod +x ~/bin/"$cmd_name"
+            echo "  ✓ $cmd_name command"
+        fi
+    done
+    
+    # Add ~/bin to PATH if not already there
+    if ! grep -q 'export PATH="$HOME/bin:$PATH"' ~/.bashrc; then
+        echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+        echo "  ✓ Added ~/bin to PATH"
+    fi
 fi
 
 # ============================================

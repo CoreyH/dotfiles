@@ -1,5 +1,25 @@
 # Changelog
 
+## 2024-08-06 - Omakub-Inspired Features
+
+### Added
+- `fedora-config` interactive configuration menu
+  - Theme management
+  - Extension configuration
+  - Software installation
+  - System updates
+  - OneDrive controls
+  - Quick actions
+- Bash aliases file with productivity shortcuts
+- Helper functions (extract, mkcd, backup, sysinfo)
+- Omakub-style installer with ASCII art
+- ~/bin directory for user commands
+
+### Inspired By
+- DHH's Omakub/Omarchy approach to Linux configuration
+- Focus on single command (`fedora-config`) for all settings
+- Opinionated defaults with easy customization
+
 ## 2024-08-06 - VM Testing & Fixes
 
 ### Added

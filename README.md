@@ -21,14 +21,16 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 - **GNOME Settings**: Dark mode, extensions, keyboard shortcuts
 - **OneDrive**: Selective sync configuration (Documents & Desktop)
 - **Apps**: Edge, 1Password, development tools
-- **Shell**: Bash configuration and aliases
+- **Shell**: Bash configuration and productivity aliases
 - **Scripts**: Helper utilities for system management
+- **Config Menu**: `fedora-config` command for easy customization (Omakub-inspired)
 
 ## Structure
 
 ```
 .
-├── bash/           # Shell configuration
+├── bash/           # Shell configuration and aliases
+├── bin/            # User commands (fedora-config)
 ├── git/            # Git configuration
 ├── gnome/          # GNOME settings and extensions
 ├── onedrive/       # OneDrive sync configuration
@@ -37,6 +39,29 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 ├── CLAUDE.md       # AI assistant context
 └── install.sh      # Main installation script
 ```
+
+## Key Features
+
+### 🎛️ Configuration Menu (`fedora-config`)
+Access all settings from one place:
+- Theme switching (dark/light/auto)
+- Extension configuration
+- Software installation
+- Keyboard shortcuts
+- System updates
+- OneDrive management
+- Quick actions
+
+### ⚡ Productivity Aliases
+Quick commands for common tasks:
+- `config` - Open configuration menu
+- `dots` - Jump to dotfiles directory
+- `update` - Update system and flatpaks
+- `odsync` - Sync OneDrive
+- `backup <file>` - Quick file backup
+- `extract <archive>` - Extract any archive format
+- `mkcd <dir>` - Make directory and enter it
+- `sysinfo` - System information overview
 
 ## Manual Steps After Installation
 
