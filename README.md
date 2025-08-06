@@ -12,6 +12,7 @@ git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
 
 # Run the installer
 cd ~/dotfiles
+chmod +x install.sh  # Only needed if executable bit wasn't preserved
 ./install.sh
 ```
 
