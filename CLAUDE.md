@@ -104,6 +104,13 @@ cd ~/dotfiles
 chmod +x install.sh  # Only if needed
 ./install.sh
 
+# Choose and setup prompt
+./scripts/setup-prompt.sh  # Choose Starship (recommended)
+source ~/.bashrc
+
+# Setup Alacritty (if using)
+./scripts/setup-alacritty.sh
+
 # Install and configure GNOME extensions
 # Use Extension Manager to install Dash to Panel and Auto Move Windows
 ~/dotfiles/scripts/setup-extensions.sh

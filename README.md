@@ -52,6 +52,22 @@ Access all settings from one place:
 - OneDrive management
 - Quick actions
 
+### 🚀 Starship Prompt
+Beautiful, fast, Git-aware prompt showing:
+- Current directory with smart truncation
+- Git branch, status, and changes
+- Language versions (Python, Node, Rust, etc.)
+- Command execution status
+- Customizable via `~/.config/starship.toml`
+
+### 🖥️ Alacritty Terminal
+Pre-configured with:
+- Tokyo Night theme (default)
+- Multiple themes available (Catppuccin, Dracula)
+- CaskaydiaCove Nerd Font
+- Proper keybindings for copy/paste
+- 95% opacity with blur
+
 ### ⚡ Productivity Aliases
 Quick commands for common tasks:
 - `config` - Open configuration menu
@@ -62,6 +78,7 @@ Quick commands for common tasks:
 - `extract <archive>` - Extract any archive format
 - `mkcd <dir>` - Make directory and enter it
 - `sysinfo` - System information overview
+- `prompt-switch` - Switch between prompt styles
 
 ## Manual Steps After Installation
 

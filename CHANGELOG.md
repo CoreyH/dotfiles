@@ -1,5 +1,27 @@
 # Changelog
 
+## 2024-08-06 - Terminal and Prompt Enhancements
+
+### Added
+- **Alacritty Configuration**
+  - Tokyo Night theme (default)
+  - Multiple theme options (Catppuccin, Dracula)
+  - CaskaydiaCove Nerd Font setup
+  - Automated setup script
+- **Starship Prompt**
+  - Modern, fast prompt with Git integration
+  - Language version detection
+  - Custom configuration
+- **Prompt Options**
+  - Starship (recommended)
+  - Custom bash prompt
+  - PowerShell-style prompt
+  - `prompt-switch` command for easy switching
+
+### Fixed
+- Color escape sequences in prompts
+- Bash comparison operators for Git status
+
 ## 2024-08-06 - Omakub-Inspired Features
 
 ### Added
