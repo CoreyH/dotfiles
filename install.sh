@@ -195,6 +195,17 @@ else
 fi
 
 # ============================================
+# STEP 6.5: Setup Alacritty (if installed)
+# ============================================
+if command -v alacritty &> /dev/null; then
+    echo ""
+    echo "[6.5/8] Setting up Alacritty..."
+    if [ -f "$DOTFILES_DIR/scripts/setup-alacritty.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/setup-alacritty.sh"
+    fi
+fi
+
+# ============================================
 # STEP 7: Create Helper Scripts
 # ============================================
 echo ""

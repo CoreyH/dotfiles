@@ -1,0 +1,16 @@
+[general]
+import = [ 
+    "~/.config/alacritty/theme.toml",
+    "~/.config/alacritty/font.toml",
+    "~/.config/alacritty/shared.toml"
+]
+
+[window]
+padding = { x = 10, y = 10 }
+decorations = "Full"
+opacity = 0.95
+blur = true
+
+[scrolling]
+history = 10000
+multiplier = 3
