@@ -1,0 +1,70 @@
+#!/bin/bash
+# PowerShell/posh-git style prompt for Bash
+
+# Source the main bashrc first
+if [ -f ~/dotfiles/bash/.bashrc ]; then
+    . ~/dotfiles/bash/.bashrc
+fi
+
+# Override with PowerShell-style prompt
+parse_git_status_porcelain() {
+    local status=$(git status --porcelain 2>/dev/null)
+    local added=$(echo "$status" | grep -c "^A")
+    local modified=$(echo "$status" | grep -c "^ M")
+    local deleted=$(echo "$status" | grep -c "^ D")
+    local untracked=$(echo "$status" | grep -c "^??")
+    
+    local result=""
+    [ $added -gt 0 ] && result="$result +$added"
+    [ $modified -gt 0 ] && result="$result ~$modified"
+    [ $deleted -gt 0 ] && result="$result -$deleted"
+    [ $untracked -gt 0 ] && result="$result ?$untracked"
+    
+    echo "$result"
+}
+
+powershell_style_prompt() {
+    local last_status=$?
+    
+    # Path in blue/cyan like PowerShell
+    local path="${CYAN}$(pwd)${RESET}"
+    
+    # Git information
+    local branch=$(parse_git_branch)
+    local git_info=""
+    
+    if [ -n "$branch" ]; then
+        local status_info=$(parse_git_status_porcelain)
+        local ahead=$(parse_git_ahead)
+        local behind=$(parse_git_behind)
+        
+        # Color based on status
+        if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+            git_info=" ${CYAN}[${YELLOW}$branch"
+        else
+            git_info=" ${CYAN}[${GREEN}$branch"
+        fi
+        
+        # Add status indicators
+        [ -n "$status_info" ] && git_info="$git_info${RED}$status_info"
+        [ -n "$ahead" ] && git_info="$git_info ${GREEN}↑$ahead"
+        [ -n "$behind" ] && git_info="$git_info ${RED}↓$behind"
+        
+        git_info="$git_info${CYAN}]${RESET}"
+    fi
+    
+    # Build prompt
+    PS1="${path}${git_info}\n"
+    
+    # Prompt symbol like PowerShell
+    if [ $last_status -eq 0 ]; then
+        PS1="${PS1}${GREEN}PS>${RESET} "
+    else
+        PS1="${PS1}${RED}PS>${RESET} "
+    fi
+}
+
+# Set PowerShell-style prompt
+PROMPT_COMMAND='powershell_style_prompt'
+
+echo -e "${CYAN}PowerShell-style prompt activated${RESET}"

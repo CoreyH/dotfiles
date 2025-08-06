@@ -1,0 +1,171 @@
+#!/bin/bash
+# Fedora Bash Configuration with Git-aware prompt
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# History settings
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
+
+# Better tab completion
+bind "set show-all-if-ambiguous on"
+bind "set completion-ignore-case on"
+
+# Colors
+RED='\[\033[0;31m\]'
+GREEN='\[\033[0;32m\]'
+YELLOW='\[\033[1;33m\]'
+BLUE='\[\033[0;34m\]'
+PURPLE='\[\033[0;35m\]'
+CYAN='\[\033[0;36m\]'
+WHITE='\[\033[0;37m\]'
+RESET='\[\033[0m\]'
+BOLD='\[\033[1m\]'
+
+# Git prompt functions (posh-git style)
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+parse_git_dirty() {
+    git status --porcelain 2> /dev/null | wc -l
+}
+
+parse_git_ahead() {
+    git status -sb 2> /dev/null | grep -o "ahead [0-9]*" | grep -o "[0-9]*"
+}
+
+parse_git_behind() {
+    git status -sb 2> /dev/null | grep -o "behind [0-9]*" | grep -o "[0-9]*"
+}
+
+git_prompt_info() {
+    local branch=$(parse_git_branch)
+    if [ -n "$branch" ]; then
+        local dirty=$(parse_git_dirty)
+        local ahead=$(parse_git_ahead)
+        local behind=$(parse_git_behind)
+        
+        # Build git status string
+        local git_status=""
+        
+        # Branch name
+        if [ "$dirty" -gt 0 ]; then
+            git_status="${YELLOW}$branch${RESET}"
+        else
+            git_status="${GREEN}$branch${RESET}"
+        fi
+        
+        # Dirty files indicator
+        if [ "$dirty" -gt 0 ]; then
+            git_status="$git_status ${RED}+$dirty${RESET}"
+        fi
+        
+        # Ahead/behind indicators
+        if [ -n "$ahead" ]; then
+            git_status="$git_status ${GREEN}↑$ahead${RESET}"
+        fi
+        if [ -n "$behind" ]; then
+            git_status="$git_status ${RED}↓$behind${RESET}"
+        fi
+        
+        echo " ${CYAN}[${RESET}$git_status${CYAN}]${RESET}"
+    fi
+}
+
+# Virtual environment detection
+virtualenv_info() {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        echo "${PURPLE}($(basename $VIRTUAL_ENV))${RESET} "
+    fi
+}
+
+# Exit status indicator
+exit_status() {
+    local status=$?
+    if [ $status -ne 0 ]; then
+        echo "${RED}✗${RESET} "
+    else
+        echo "${GREEN}✓${RESET} "
+    fi
+}
+
+# Build the prompt (posh-git style)
+build_prompt() {
+    PS1=""
+    
+    # Exit status
+    PS1="$(exit_status)"
+    
+    # Virtual environment
+    PS1="${PS1}$(virtualenv_info)"
+    
+    # Username@hostname
+    if [ "$EUID" -eq 0 ]; then
+        PS1="${PS1}${RED}\u@\h${RESET}"
+    else
+        PS1="${PS1}${GREEN}\u@\h${RESET}"
+    fi
+    
+    PS1="${PS1}:"
+    
+    # Current directory (shortened)
+    PS1="${PS1}${BLUE}\w${RESET}"
+    
+    # Git information
+    PS1="${PS1}$(git_prompt_info)"
+    
+    # Prompt character
+    if [ "$EUID" -eq 0 ]; then
+        PS1="${PS1}\n${RED}#${RESET} "
+    else
+        PS1="${PS1}\n${BOLD}$${RESET} "
+    fi
+}
+
+# Set the prompt command
+PROMPT_COMMAND='build_prompt'
+
+# Alternative simpler prompt (uncomment to use)
+# PS1='${GREEN}\u@\h${RESET}:${BLUE}\w${RESET}$(git_prompt_info)\n$ '
+
+# Load aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Load bash completion
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# FZF integration (if installed)
+if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
+    source /usr/share/fzf/shell/key-bindings.bash
+fi
+
+# Node Version Manager (if installed)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Rust (if installed)
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Welcome message
+if [ -n "$PS1" ]; then
+    echo -e "${CYAN}Welcome to Fedora Linux${RESET}"
+    echo -e "Type ${GREEN}fedora-config${RESET} or ${GREEN}omakub${RESET} for configuration menu"
+    echo
+fi
