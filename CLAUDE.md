@@ -101,13 +101,25 @@ gh auth login --web
 # Clone and install
 git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
 cd ~/dotfiles
+chmod +x install.sh  # Only if needed
 ./install.sh
+
+# Install and configure GNOME extensions
+# Use Extension Manager to install Dash to Panel and Auto Move Windows
+~/dotfiles/scripts/setup-extensions.sh
+# Log out and back in
 
 # Set up OneDrive
 onedrive  # Authenticate
 onedrive --sync --resync
 systemctl --user enable --now onedrive
 ```
+
+### Known Issues & Fixes
+- **Missing packages**: Some packages (neofetch, gnome-shell-extension-manager) may not be available - installer handles gracefully
+- **GNOME settings errors**: Some dconf keys may be locked or unavailable - normal, essential settings still apply
+- **Wayland limitations**: Can't restart GNOME Shell with Alt+F2 'r' - must log out/in for extension changes
+- **Panel not centered**: Run `~/dotfiles/scripts/setup-extensions.sh` after installing extensions
 
 ### Add New Software
 ```bash

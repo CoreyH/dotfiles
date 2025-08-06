@@ -40,7 +40,15 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 
 ## Manual Steps After Installation
 
-1. **OneDrive Authentication**:
+1. **Install GNOME Extensions**:
+   - Open Extension Manager
+   - Search and install: 
+     - Dash to Panel
+     - Auto Move Windows
+   - After installing, run: `~/dotfiles/scripts/setup-extensions.sh`
+   - Log out and back in (required on Wayland)
+
+2. **OneDrive Authentication**:
    ```bash
    onedrive
    # Follow the prompts
@@ -48,13 +56,10 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
    systemctl --user enable --now onedrive
    ```
 
-2. **Install GNOME Extensions**:
-   - Open Extension Manager
-   - Install: Dash to Panel, Auto Move Windows
-
 3. **Sign in to Apps**:
    - Microsoft Edge
    - 1Password
+   - GitHub CLI: `gh auth login --web`
 
 ## Updating
 
