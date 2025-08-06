@@ -101,9 +101,20 @@ fi
 # ============================================
 echo ""
 echo "[4/8] Applying GNOME settings..."
+
+# Try essential settings first (these should always work)
+if [ -f "$DOTFILES_DIR/gnome/essential-settings.ini" ]; then
+    echo "  Applying essential settings..."
+    dconf load / < "$DOTFILES_DIR/gnome/essential-settings.ini" 2>/dev/null && \
+        echo "  ✓ Essential settings applied" || \
+        echo "  ⚠ Some settings couldn't be applied"
+fi
+
+# Try full settings (may have system-specific keys)
 if [ -f "$DOTFILES_DIR/gnome/settings.ini" ]; then
-    dconf load / < "$DOTFILES_DIR/gnome/settings.ini"
-    echo "  ✓ GNOME settings applied"
+    echo "  Attempting full settings restore..."
+    dconf load / < "$DOTFILES_DIR/gnome/settings.ini" 2>/dev/null || \
+        echo "  ⚠ Some system-specific settings skipped (this is normal)"
 fi
 
 # ============================================
