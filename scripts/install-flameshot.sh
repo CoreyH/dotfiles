@@ -76,23 +76,9 @@ if [ -n "$new_path" ]; then
     echo -e "${GREEN}✓${NC} Keyboard shortcut configured: Ctrl+Print Screen"
 fi
 
-# Create desktop entry for app launcher
-echo
-echo -e "${GREEN}Creating desktop entry...${NC}"
-mkdir -p ~/.local/share/applications
-
-cat > ~/.local/share/applications/flameshot.desktop << 'EOF'
-[Desktop Entry]
-Name=Flameshot
-Comment=Powerful yet simple to use screenshot software
-Exec=flameshot gui
-Icon=flameshot
-Terminal=false
-Type=Application
-Categories=Graphics;Utility;
-EOF
-
-update-desktop-database ~/.local/share/applications 2>/dev/null || true
+# Note: Desktop entry is created by the RPM package
+# No need to create our own desktop entry as it causes duplicates
+echo -e "${GREEN}Using system desktop entry from RPM package${NC}"
 
 # Configure Flameshot settings
 echo

@@ -25,6 +25,7 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 - **Scripts**: Helper utilities for system management
 - **Config Menu**: `fedora-config` command for easy customization (Omakub-inspired)
 - **Development Tools**: Volta (Node.js manager), Claude Code CLI
+- **Web Apps**: Edge-based PWAs for ChatGPT, WhatsApp, GitHub, etc.
 
 ## Structure
 

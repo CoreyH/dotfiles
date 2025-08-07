@@ -19,15 +19,21 @@ echo ""
 # STEP 1: System Update & Base Packages
 # ============================================
 echo "[1/8] System update and base packages..."
+
+# Check if RPM Fusion is already enabled
+if ! dnf repolist | grep -q "rpmfusion-free"; then
+    echo "Enabling RPM Fusion repositories..."
+    sudo dnf install -y \
+        https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+        https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+else
+    echo "  ✓ RPM Fusion already enabled"
+fi
+
 read -p "Update system packages? (y/n): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo dnf update -y
-    
-    # Enable RPM Fusion
-    sudo dnf install -y \
-        https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 fi
 
 # ============================================
@@ -84,9 +90,13 @@ fi
 
 # Configure Flameshot if installed
 if command -v flameshot &> /dev/null; then
-    echo "Configuring Flameshot..."
-    if [ -f "$DOTFILES_DIR/scripts/install-flameshot.sh" ]; then
-        bash "$DOTFILES_DIR/scripts/install-flameshot.sh"
+    if [ ! -f ~/.config/flameshot/flameshot.ini ]; then
+        echo "Configuring Flameshot..."
+        if [ -f "$DOTFILES_DIR/scripts/install-flameshot.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/install-flameshot.sh"
+        fi
+    else
+        echo "  ✓ Flameshot already configured"
     fi
 fi
 
@@ -125,8 +135,12 @@ echo "[3/8] Creating configuration symlinks..."
 # OneDrive config
 if [ -f "$DOTFILES_DIR/onedrive/sync_list" ]; then
     mkdir -p ~/.config/onedrive
-    ln -sf "$DOTFILES_DIR/onedrive/sync_list" ~/.config/onedrive/sync_list
-    echo "  ✓ OneDrive sync_list"
+    if [ ! -L ~/.config/onedrive/sync_list ]; then
+        ln -sf "$DOTFILES_DIR/onedrive/sync_list" ~/.config/onedrive/sync_list
+        echo "  ✓ OneDrive sync_list"
+    else
+        echo "  ✓ OneDrive sync_list (already linked)"
+    fi
 fi
 
 # Bash config
@@ -199,19 +213,19 @@ fi
 echo ""
 echo "[5/8] GNOME Extensions..."
 if [ -f "$DOTFILES_DIR/gnome/extensions.txt" ]; then
-    echo "Extensions to install:"
-    cat "$DOTFILES_DIR/gnome/extensions.txt"
-    echo ""
-    
     # Check if extensions are already installed
     if gnome-extensions list | grep -q "dash-to-panel"; then
-        echo "  ✓ Some extensions already installed"
+        echo "  ✓ Extensions already installed"
         # Try to configure them
         if [ -f "$DOTFILES_DIR/scripts/setup-extensions.sh" ]; then
+            echo "  Applying extension settings..."
             bash "$DOTFILES_DIR/scripts/setup-extensions.sh"
         fi
     else
-        echo "After installing extensions via Extension Manager, run:"
+        echo "Extensions to install:"
+        cat "$DOTFILES_DIR/gnome/extensions.txt"
+        echo ""
+        echo "After installing via Extension Manager, run:"
         echo "  ~/dotfiles/scripts/setup-extensions.sh"
         echo ""
         read -p "Press Enter to continue..."
@@ -237,24 +251,40 @@ fi
 echo ""
 echo "[6/8] OneDrive setup..."
 if command -v onedrive &> /dev/null; then
-    echo "OneDrive is installed. To complete setup:"
-    echo "  1. Run: onedrive"
-    echo "  2. Authenticate with Microsoft"
-    echo "  3. Run: onedrive --sync --resync"
-    echo "  4. Enable service: systemctl --user enable --now onedrive"
-    read -p "Press Enter to continue..."
+    # Check if OneDrive is already authenticated
+    if [ -f ~/.config/onedrive/refresh_token ]; then
+        echo "  ✓ OneDrive already authenticated"
+        # Check if service is running
+        if systemctl --user is-active --quiet onedrive; then
+            echo "  ✓ OneDrive service is running"
+        else
+            echo "  ⚠ OneDrive service not running. To enable:"
+            echo "    systemctl --user enable --now onedrive"
+        fi
+    else
+        echo "OneDrive needs authentication:"
+        echo "  1. Run: onedrive"
+        echo "  2. Authenticate with Microsoft"
+        echo "  3. Run: onedrive --sync --resync"
+        echo "  4. Enable service: systemctl --user enable --now onedrive"
+        read -p "Press Enter to continue..."
+    fi
 else
-    echo "OneDrive not installed. Skipping..."
+    echo "  ⚠ OneDrive not installed"
 fi
 
 # ============================================
 # STEP 6.5: Setup Alacritty (if installed)
 # ============================================
 if command -v alacritty &> /dev/null; then
-    echo ""
-    echo "[6.5/8] Setting up Alacritty..."
-    if [ -f "$DOTFILES_DIR/scripts/setup-alacritty.sh" ]; then
-        bash "$DOTFILES_DIR/scripts/setup-alacritty.sh"
+    if [ ! -f ~/.config/alacritty/alacritty.toml ]; then
+        echo ""
+        echo "[6.5/8] Setting up Alacritty..."
+        if [ -f "$DOTFILES_DIR/scripts/setup-alacritty.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/setup-alacritty.sh"
+        fi
+    else
+        echo "  ✓ Alacritty already configured"
     fi
 fi
 
@@ -289,18 +319,48 @@ echo "======================================"
 echo "        Installation Complete!"
 echo "======================================"
 echo ""
-echo "Next steps:"
-echo "1. Restart GNOME Shell (Alt+F2, type 'r', Enter) or log out/in"
-echo "2. Install GNOME extensions via Extension Manager"
-echo "3. Set up OneDrive authentication: onedrive"
-echo "4. Sign in to Microsoft Edge profiles and 1Password"
-echo "5. Install development tools:"
-echo "   - Volta (Node.js manager): ~/dotfiles/scripts/install-volta.sh"
-echo "   - Claude Code: ~/dotfiles/scripts/install-claude-code.sh"
-echo ""
-echo "To update dotfiles later:"
-echo "  cd ~/dotfiles && git pull"
-echo ""
-echo "For configuration menu: fedora-config"
+
+# Show only uncompleted tasks
+UNCOMPLETED_TASKS=()
+
+# Check GNOME extensions
+if ! gnome-extensions list | grep -q "dash-to-panel"; then
+    UNCOMPLETED_TASKS+=("Install GNOME extensions via Extension Manager")
+fi
+
+# Check OneDrive auth
+if command -v onedrive &> /dev/null && [ ! -f ~/.config/onedrive/refresh_token ]; then
+    UNCOMPLETED_TASKS+=("Authenticate OneDrive: onedrive")
+fi
+
+# Check Claude Code
+if ! command -v claude &> /dev/null; then
+    UNCOMPLETED_TASKS+=("Install Claude Code: ~/dotfiles/scripts/install-claude-code.sh")
+fi
+
+# Check Volta
+if ! command -v volta &> /dev/null; then
+    UNCOMPLETED_TASKS+=("Install Volta: ~/dotfiles/scripts/install-volta.sh")
+fi
+
+if [ ${#UNCOMPLETED_TASKS[@]} -gt 0 ]; then
+    echo "Remaining setup tasks:"
+    for i in "${!UNCOMPLETED_TASKS[@]}"; do
+        echo "  $((i+1)). ${UNCOMPLETED_TASKS[$i]}"
+    done
+    echo ""
+else
+    echo "✓ All setup tasks completed!"
+    echo ""
+fi
+
+echo "Quick commands:"
+echo "  • fedora-config - Configuration menu"
+echo "  • cd ~/dotfiles && git pull - Update dotfiles"
+
+if command -v flameshot &> /dev/null; then
+    echo "  • Ctrl+Print Screen - Screenshot with Flameshot"
+fi
+
 echo ""
 echo "Done!"
