@@ -1,0 +1,76 @@
+{
+  "webapps": [
+    {
+      "name": "ChatGPT",
+      "url": "https://chatgpt.com/",
+      "icon": "chatgpt.png",
+      "categories": ["AI", "Productivity"]
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/",
+      "icon": "github.png",
+      "categories": ["Development"]
+    },
+    {
+      "name": "WhatsApp",
+      "url": "https://web.whatsapp.com/",
+      "icon": "whatsapp.png",
+      "categories": ["Communication"]
+    },
+    {
+      "name": "YouTube",
+      "url": "https://youtube.com/",
+      "icon": "youtube.png",
+      "categories": ["Media", "Entertainment"]
+    },
+    {
+      "name": "X",
+      "url": "https://x.com/",
+      "icon": "x.png",
+      "categories": ["Social"]
+    },
+    {
+      "name": "Google Messages",
+      "url": "https://messages.google.com/",
+      "icon": "google-messages.png",
+      "categories": ["Communication"]
+    },
+    {
+      "name": "Google Photos",
+      "url": "https://photos.google.com/",
+      "icon": "google-photos.png",
+      "categories": ["Media", "Storage"]
+    },
+    {
+      "name": "Google Contacts",
+      "url": "https://contacts.google.com/",
+      "icon": "google-contacts.png",
+      "categories": ["Productivity"]
+    },
+    {
+      "name": "Claude",
+      "url": "https://claude.ai/",
+      "icon": "claude.png",
+      "categories": ["AI", "Productivity"]
+    },
+    {
+      "name": "Notion",
+      "url": "https://notion.so/",
+      "icon": "notion.png",
+      "categories": ["Productivity", "Notes"]
+    },
+    {
+      "name": "Linear",
+      "url": "https://linear.app/",
+      "icon": "linear.png",
+      "categories": ["Development", "Project Management"]
+    },
+    {
+      "name": "Spotify",
+      "url": "https://open.spotify.com/",
+      "icon": "spotify.png",
+      "categories": ["Media", "Music"]
+    }
+  ]
+}
