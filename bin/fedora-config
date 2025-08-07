@@ -173,10 +173,14 @@ set_shortcuts() {
     case $key_choice in
         1)
             echo "Applying Windows-like shortcuts..."
-            dconf write /org/gnome/desktop/wm/keybindings/close "['<Alt>F4']"
-            dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
-            dconf write /org/gnome/settings-daemon/plugins/media-keys/terminal "['<Control><Alt>t']"
-            echo -e "${GREEN}✓ Windows shortcuts applied${NC}"
+            if [ -f "$DOTFILES_DIR/scripts/setup-windows-shortcuts.sh" ]; then
+                bash "$DOTFILES_DIR/scripts/setup-windows-shortcuts.sh"
+            else
+                # Fallback to basic settings
+                dconf write /org/gnome/desktop/wm/keybindings/close "['<Alt>F4']"
+                dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
+                echo -e "${GREEN}✓ Basic Windows shortcuts applied${NC}"
+            fi
             ;;
         2)
             echo "Applying macOS-like shortcuts..."

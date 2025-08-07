@@ -1,5 +1,27 @@
 # Changelog
 
+## 2025-08-07 - Screenshot Tool & Keyboard Shortcuts
+
+### Added
+- **Flameshot Screenshot Tool**
+  - DHH's preferred screenshot tool from Omakub
+  - Advanced annotation features (arrows, text, blur)
+  - Configured with Ctrl+Print Screen shortcut
+  - Installation script with default configuration
+- **Windows Keyboard Shortcuts**
+  - Comprehensive Windows-style shortcuts setup
+  - Super+E for file manager, Super+L for lock, etc.
+  - Documentation of all available shortcuts
+- **Claude Code Installation**
+  - Volta and Claude Code installation scripts
+  - Documentation for AI-assisted development
+  - Integration with dotfiles workflow
+
+### Updated
+- Added Flameshot to DNF packages list
+- Install.sh now configures Flameshot automatically
+- Keyboard shortcuts documentation with screenshot tools
+
 ## 2025-08-06 - Microsoft Edge Configuration
 
 ### Added

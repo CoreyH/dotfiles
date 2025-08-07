@@ -20,10 +20,11 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 
 - **GNOME Settings**: Dark mode, extensions, keyboard shortcuts
 - **OneDrive**: Selective sync configuration (Documents & Desktop)
-- **Apps**: Edge, 1Password, development tools
+- **Apps**: Edge, 1Password, development tools, Claude Code
 - **Shell**: Bash configuration and productivity aliases
 - **Scripts**: Helper utilities for system management
 - **Config Menu**: `fedora-config` command for easy customization (Omakub-inspired)
+- **Development Tools**: Volta (Node.js manager), Claude Code CLI
 
 ## Structure
 

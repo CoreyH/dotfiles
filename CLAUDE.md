@@ -90,9 +90,16 @@ gnome-extensions prefs [extension-name]
 - ✅ Created comprehensive Edge setup documentation and scripts
 - ✅ Added Edge profile configuration to fedora-config menu
 - ✅ Documented RPM vs Flatpak installation requirements for 1Password
+- ✅ Added Claude Code installation to dotfiles
+- ✅ Configured Windows-style keyboard shortcuts
+
+### Keyboard Shortcuts
+- Using Windows-style shortcuts (Alt+F4, Super+D, Super+E, etc.)
+- Script: `scripts/setup-windows-shortcuts.sh`
+- Documentation: `docs/keyboard-shortcuts.md`
+- Most important shortcuts already match Windows defaults
 
 ### Remaining Tasks
-- Configure productivity shortcuts matching Windows/macOS muscle memory
 - Set up NAS mounting for cold storage access
 - Test complete multi-machine sync workflow
 - Answer remaining setup questions in `fedora-setup-questions.md`
@@ -118,6 +125,12 @@ source ~/.bashrc
 # Setup Alacritty (if using)
 ./scripts/setup-alacritty.sh
 
+# Install Claude Code (optional but recommended)
+./scripts/install-volta.sh
+source ~/.bashrc
+volta install @anthropic-ai/claude-code
+# Or use: ./scripts/install-claude-code.sh
+
 # Install and configure GNOME extensions
 # Use Extension Manager to install Dash to Panel and Auto Move Windows
 ~/dotfiles/scripts/setup-extensions.sh
@@ -127,6 +140,9 @@ source ~/.bashrc
 onedrive  # Authenticate
 onedrive --sync --resync
 systemctl --user enable --now onedrive
+
+# Configure Edge profiles
+./scripts/configure-edge-profiles.sh
 ```
 
 ### Known Issues & Fixes

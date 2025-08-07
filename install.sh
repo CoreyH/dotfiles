@@ -76,6 +76,46 @@ if [ -f "$DOTFILES_DIR/scripts/install-third-party.sh" ]; then
     bash "$DOTFILES_DIR/scripts/install-third-party.sh"
 fi
 
+# Install Typora
+if [ -f "$DOTFILES_DIR/scripts/install-typora.sh" ]; then
+    echo "Installing Typora..."
+    bash "$DOTFILES_DIR/scripts/install-typora.sh"
+fi
+
+# Configure Flameshot if installed
+if command -v flameshot &> /dev/null; then
+    echo "Configuring Flameshot..."
+    if [ -f "$DOTFILES_DIR/scripts/install-flameshot.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/install-flameshot.sh"
+    fi
+fi
+
+# Install Flatpak applications
+if [ -f "$DOTFILES_DIR/packages/flatpak.txt" ]; then
+    echo ""
+    echo "Installing Flatpak applications..."
+    
+    # Ensure Flatpak is installed and Flathub is added
+    if ! command -v flatpak &> /dev/null; then
+        echo "  Installing Flatpak..."
+        sudo dnf install -y flatpak
+    fi
+    
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    
+    # Install each Flatpak app
+    while IFS= read -r line; do
+        if [ ! -z "$line" ] && [ "${line:0:1}" != "#" ]; then
+            remote=$(echo "$line" | awk '{print $1}')
+            app_id=$(echo "$line" | awk '{print $2}')
+            if [ ! -z "$app_id" ]; then
+                echo "  Installing: $app_id"
+                flatpak install -y "$remote" "$app_id" 2>/dev/null || echo "  ⚠ Failed to install: $app_id"
+            fi
+        fi
+    done < "$DOTFILES_DIR/packages/flatpak.txt"
+fi
+
 # ============================================
 # STEP 3: Create Symlinks
 # ============================================
@@ -237,12 +277,17 @@ echo "        Installation Complete!"
 echo "======================================"
 echo ""
 echo "Next steps:"
-echo "1. Restart GNOME Shell (Alt+F2, type 'r', Enter)"
+echo "1. Restart GNOME Shell (Alt+F2, type 'r', Enter) or log out/in"
 echo "2. Install GNOME extensions via Extension Manager"
-echo "3. Set up OneDrive authentication"
-echo "4. Sign in to Microsoft Edge and 1Password"
+echo "3. Set up OneDrive authentication: onedrive"
+echo "4. Sign in to Microsoft Edge profiles and 1Password"
+echo "5. Install development tools:"
+echo "   - Volta (Node.js manager): ~/dotfiles/scripts/install-volta.sh"
+echo "   - Claude Code: ~/dotfiles/scripts/install-claude-code.sh"
 echo ""
 echo "To update dotfiles later:"
 echo "  cd ~/dotfiles && git pull"
+echo ""
+echo "For configuration menu: fedora-config"
 echo ""
 echo "Done!"

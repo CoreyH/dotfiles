@@ -8,3 +8,5 @@ gnome-extensions-app
 onedrive
 stow
 gh
+nodejs
+flameshot

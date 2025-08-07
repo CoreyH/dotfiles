@@ -1,0 +1,5 @@
+# Flatpak applications to install
+# Format: remote app-id (e.g., flathub io.typora.Typora)
+
+# Markdown editor
+flathub io.typora.Typora
