@@ -134,6 +134,9 @@ volta install @anthropic-ai/claude-code
 # Install and configure GNOME extensions
 # Use Extension Manager to install Dash to Panel and Auto Move Windows
 ~/dotfiles/scripts/setup-extensions.sh
+
+# Set up clipboard manager (Windows-style Super+V)
+./scripts/setup-clipboard-manager.sh
 # Log out and back in
 
 # Set up OneDrive

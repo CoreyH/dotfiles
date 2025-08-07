@@ -219,6 +219,19 @@ if [ -f "$DOTFILES_DIR/gnome/extensions.txt" ]; then
 fi
 
 # ============================================
+# STEP 5.5: Setup Clipboard Manager
+# ============================================
+echo ""
+echo "[5.5/8] Setting up Clipboard Manager..."
+read -p "Would you like to set up the Windows-style clipboard manager (Super+V)? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ -f "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh"
+    fi
+fi
+
+# ============================================
 # STEP 6: OneDrive Setup
 # ============================================
 echo ""

@@ -169,3 +169,7 @@ if [[ $- == *i* ]]; then
     echo -e "Type \033[0;32mfedora-config\033[0m or \033[0;32momakub\033[0m for configuration menu"
     echo
 fi
+
+export PATH="$HOME/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
