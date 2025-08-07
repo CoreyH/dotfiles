@@ -5,7 +5,7 @@
 if ! command -v microsoft-edge &> /dev/null; then
     echo "Installing Microsoft Edge..."
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
+    sudo sh -c 'echo -e "[microsoft-edge]\nname=Microsoft Edge\nbaseurl=https://packages.microsoft.com/yumrepos/edge\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/microsoft-edge.repo'
     sudo dnf install -y microsoft-edge-stable
 fi
 
