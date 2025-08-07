@@ -129,6 +129,12 @@ These are insights gained during setup that would have been helpful from the beg
 - **Extension installation**: GNOME extensions need GUI installation first
 - **Some preferences**: Certain GNOME/app settings locked or reset on sync
 
+#### Edge Web App Desktop Files
+- **Must include --class parameter**: Without `--class="AppName"`, apps won't get separate dock icons
+- **Required format**: `microsoft-edge --new-window --app="URL" --class="AppName" --user-data-dir="/path"`
+- **Icon path must be absolute**: Use full path like `/home/user/.local/share/applications/icons/App.png`
+- **StartupWMClass must match --class**: Both should use the same "AppName" for proper window grouping
+
 ## Current Status (2025-08-06)
 
 ### Completed Today
