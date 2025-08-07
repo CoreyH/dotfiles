@@ -83,6 +83,52 @@ gnome-extensions prefs [extension-name]
 - **Browser**: Microsoft Edge with account sync
 - **System Settings**: dconf dumps stored in dotfiles repo
 
+## Key Learnings & Decisions
+
+### Things to Know Before Starting
+These are insights gained during setup that would have been helpful from the beginning:
+
+#### Installation Order Matters
+1. **Edge before 1Password** - Must use RPM installation, not Flatpak, for 1Password extension compatibility
+2. **Volta before Claude Code** - Better Node.js management without sudo requirements
+3. **GNOME extensions before customization** - Extensions must be installed via GUI first, then configured
+
+#### Multi-Machine Sync Realities
+- **What doesn't sync**: API keys, authentication tokens, Edge themes per profile
+- **What partially syncs**: Edge settings (theme still manual), GNOME settings (some keys locked)
+- **What syncs well**: Files via OneDrive, browser bookmarks/extensions, dotfiles via Git
+
+#### Tool Choices That Worked
+- **OneDrive**: abraunegg client > OneDriver (handles thousands of files better)
+- **Screenshots**: Flameshot > default (annotation features worth the extra tool)
+- **Prompts**: Starship > custom bash (better Git integration, easier maintenance)
+- **Terminal**: Alacritty > GNOME Terminal (better performance, themes)
+- **Web Apps**: Edge PWAs > webapp-manager (already have Edge, simpler)
+
+#### Script Design Lessons
+- **Idempotency is key**: Scripts should detect existing configs and skip
+- **Symlinks > copies**: Link configs from dotfiles repo for easy updates
+- **Check before configuring**: Avoid duplicate desktop entries, redundant settings
+- **User feedback**: Show what's happening, but skip what's already done
+
+#### Fedora/GNOME Specifics
+- **Wayland limitations**: Can't restart GNOME Shell with Alt+F2 'r', must log out/in
+- **dconf quirks**: Some keys are locked/unavailable, handle gracefully
+- **Package availability**: Not all Ubuntu packages exist in Fedora (neofetch, etc.)
+- **Fingerprint + sudo**: Works great on Framework laptop, occasional timeouts
+
+#### Edge Profile Management
+- **7 profiles = complexity**: Each needs manual theme setting after sign-in
+- **Separate data dirs**: Each web app needs its own Edge profile for isolation
+- **Desktop entries**: Careful with StartupWMClass to prevent multiple windows
+- **1Password compatibility**: RPM only, Flatpak sandboxing breaks native messaging
+
+#### What Can't Be Automated
+- **Authentication**: OneDrive, GitHub, Microsoft accounts - all need manual auth
+- **Browser profiles**: Sign-in and theme selection remain manual per profile
+- **Extension installation**: GNOME extensions need GUI installation first
+- **Some preferences**: Certain GNOME/app settings locked or reset on sync
+
 ## Current Status (2025-08-06)
 
 ### Completed Today
