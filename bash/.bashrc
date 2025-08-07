@@ -103,10 +103,15 @@ exit_status() {
 
 # Build the prompt (posh-git style)
 build_prompt() {
+    local last_status=$?
     PS1=""
     
     # Exit status
-    PS1="$(exit_status)"
+    if [ $last_status -ne 0 ]; then
+        PS1="${RED}✗${RESET} "
+    else
+        PS1="${GREEN}✓${RESET} "
+    fi
     
     # Virtual environment
     PS1="${PS1}$(virtualenv_info)"
@@ -130,12 +135,12 @@ build_prompt() {
     if [ "$EUID" -eq 0 ]; then
         PS1="${PS1}\n${RED}#${RESET} "
     else
-        PS1="${PS1}\n${BOLD}$${RESET} "
+        PS1="${PS1}\n${BOLD}\$${RESET} "
     fi
 }
 
 # Set the prompt command
-PROMPT_COMMAND='build_prompt'
+PROMPT_COMMAND=build_prompt
 
 # Alternative simpler prompt (uncomment to use)
 # PS1='${GREEN}\u@\h${RESET}:${BLUE}\w${RESET}$(git_prompt_info)\n$ '

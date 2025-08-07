@@ -8,6 +8,7 @@ echo ""
 echo "Enabling extensions..."
 gnome-extensions enable dash-to-panel@jderose9.github.com 2>/dev/null || echo "  ⚠ Dash to Panel not installed yet"
 gnome-extensions enable auto-move-windows@gnome-shell-extensions.gcampax.github.com 2>/dev/null || echo "  ⚠ Auto Move Windows not installed yet"
+gnome-extensions enable workspace-indicator@gnome-shell-extensions.gcampax.github.com 2>/dev/null || echo "  ⚠ Workspace Indicator not installed yet"
 
 # Wait a moment for extensions to initialize
 sleep 2

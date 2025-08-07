@@ -237,11 +237,16 @@ fi
 # ============================================
 echo ""
 echo "[5.5/8] Setting up Clipboard Manager..."
-read -p "Would you like to set up the Windows-style clipboard manager (Super+V)? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    if [ -f "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh" ]; then
-        bash "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh"
+# Check if clipboard-indicator extension is already installed
+if gnome-extensions list 2>/dev/null | grep -q "clipboard-indicator@tudmotu.com"; then
+    echo "  ✓ Clipboard manager already installed"
+else
+    read -p "Would you like to set up the Windows-style clipboard manager (Super+V)? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        if [ -f "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/setup-clipboard-manager.sh"
+        fi
     fi
 fi
 
