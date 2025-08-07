@@ -23,6 +23,7 @@ declare -A WEBAPPS=(
     ["Google Messages"]="https://messages.google.com/"
     ["Google Photos"]="https://photos.google.com/"
     ["Google Contacts"]="https://contacts.google.com/"
+    ["Todoist"]="https://todoist.com/"
 )
 
 # Icon URLs (optional - will try to download if not exists)
