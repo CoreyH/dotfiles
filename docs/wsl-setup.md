@@ -184,6 +184,19 @@ cd /mnt/wsl/instances/Debian/rootfs/home/username
    git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
    ```
 
+## Windows Apps Instead of Linux GUI Apps
+
+When using WSL, use native Windows applications instead of Linux GUI apps:
+
+| Linux App (Skip) | Windows Alternative | Why Better |
+|-----------------|-------------------|------------|
+| Typora (Flatpak) | Typora for Windows | Native performance |
+| Alacritty | Windows Terminal | Better WSL integration |
+| GNOME Text Editor | VS Code / Notepad++ | Native Windows apps |
+| Firefox (Linux) | Edge/Chrome/Firefox Windows | Hardware acceleration |
+| Flameshot | Windows Snipping Tool / ShareX | Captures Windows screens |
+| Edge Linux | Edge Windows | Already installed |
+
 ## Benefits of Fedora WSL + Dotfiles
 
 - **Consistency**: Same environment as your Linux machines
@@ -191,6 +204,7 @@ cd /mnt/wsl/instances/Debian/rootfs/home/username
 - **Separation**: Keep Windows and Linux environments distinct
 - **Testing**: Test scripts/configs before deploying to real Linux
 - **Speed**: WSL2 is nearly native Linux performance
+- **No Flatpak issues**: Use Windows apps for GUI, Linux for CLI
 
 ## Quick Commands
 

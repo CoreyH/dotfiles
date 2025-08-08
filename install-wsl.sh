@@ -34,8 +34,8 @@ sudo dnf update -y
 # Install packages from dnf.txt (skip GUI packages)
 if [ -f packages/dnf.txt ]; then
     echo -e "${GREEN}Installing DNF packages...${NC}"
-    # Filter out GUI-specific packages
-    grep -v -E "gnome-|extension-|flameshot|alacritty" packages/dnf.txt | \
+    # Filter out GUI-specific packages and Flatpak
+    grep -v -E "gnome-|extension-|flameshot|alacritty|flatpak|typora" packages/dnf.txt | \
     grep -v "^#" | grep -v "^$" | \
     while read -r package; do
         if ! rpm -q "$package" &>/dev/null; then
@@ -44,6 +44,9 @@ if [ -f packages/dnf.txt ]; then
         fi
     done
 fi
+
+# Skip Flatpak entirely in WSL
+echo -e "${YELLOW}Skipping Flatpak (not needed in WSL)${NC}"
 
 # Setup Git configuration
 if [ -f git/.gitconfig.template ]; then
