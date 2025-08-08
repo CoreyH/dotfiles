@@ -100,31 +100,69 @@ if command -v flameshot &> /dev/null; then
     fi
 fi
 
-# Install Flatpak applications
+# Install Flatpak applications (optional - skip if having issues)
 if [ -f "$DOTFILES_DIR/packages/flatpak.txt" ]; then
     echo ""
-    echo "Installing Flatpak applications..."
+    echo "Flatpak applications setup (optional)..."
     
-    # Ensure Flatpak is installed and Flathub is added
+    # Check if Typora is already installed via RPM
+    if rpm -q typora &>/dev/null; then
+        echo "  ✓ Typora already installed via RPM, skipping Flatpak setup"
+    else
+        read -p "Install Flatpak applications? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "  Skipping Flatpak applications"
+        else
+            echo "Installing Flatpak applications..."
+    
+    # Ensure Flatpak is installed
     if ! command -v flatpak &> /dev/null; then
         echo "  Installing Flatpak..."
         sudo dnf install -y flatpak
     fi
     
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    # Set up XDG_DATA_DIRS for Flatpak (if not already set)
+    if [[ ":$XDG_DATA_DIRS:" != *":/var/lib/flatpak/exports/share:"* ]]; then
+        echo "  Setting up Flatpak environment variables..."
+        export XDG_DATA_DIRS="${XDG_DATA_DIRS}:/var/lib/flatpak/exports/share:/home/$USER/.local/share/flatpak/exports/share"
+        
+        # Add to bashrc for persistence
+        if ! grep -q "flatpak/exports/share" ~/.bashrc; then
+            echo 'export XDG_DATA_DIRS="${XDG_DATA_DIRS}:/var/lib/flatpak/exports/share:/home/$USER/.local/share/flatpak/exports/share"' >> ~/.bashrc
+        fi
+    fi
     
-    # Install each Flatpak app
+    # Add Flathub repository at system level (requires sudo but you have NOPASSWD)
+    echo "  Adding Flathub repository (system-wide)..."
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    
+    # Update Flatpak
+    echo "  Updating Flatpak metadata..."
+    sudo flatpak update --appstream
+    
+    # Install each Flatpak app at system level
     while IFS= read -r line; do
         if [ ! -z "$line" ] && [ "${line:0:1}" != "#" ]; then
             remote=$(echo "$line" | awk '{print $1}')
             app_id=$(echo "$line" | awk '{print $2}')
             if [ ! -z "$app_id" ]; then
-                echo "  Installing: $app_id"
-                flatpak install -y "$remote" "$app_id" 2>/dev/null || echo "  ⚠ Failed to install: $app_id"
+                # Check if already installed
+                if flatpak list | grep -q "$app_id"; then
+                    echo "  ✓ Already installed: $app_id"
+                else
+                    echo "  Installing: $app_id"
+                    sudo flatpak install -y "$remote" "$app_id" || echo "  ⚠ Failed to install: $app_id"
+                fi
             fi
         fi
     done < "$DOTFILES_DIR/packages/flatpak.txt"
-fi
+    
+    echo ""
+    echo "  Note: You may need to log out and back in for Flatpak apps to appear in menus"
+        fi  # End of REPLY check
+    fi  # End of Typora check
+fi  # End of flatpak.txt file check
 
 # ============================================
 # STEP 3: Create Symlinks
