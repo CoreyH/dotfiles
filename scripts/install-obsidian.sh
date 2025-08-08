@@ -1,67 +1,49 @@
 #!/bin/bash
 
-# Install Obsidian on ARM64 Fedora
-# This script downloads and sets up Obsidian for ARM64 Linux systems
+# Install Obsidian via Flatpak for Fedora
+# This integrates well with dotfiles and provides sandboxing
 
 set -euo pipefail
 
-echo "📝 Installing Obsidian for ARM64..."
+echo "Installing Obsidian via Flatpak..."
 
-# Create Applications directory if it doesn't exist
-mkdir -p ~/Applications
-
-# Check if Obsidian is already installed
-if [ -f ~/Applications/squashfs-root/obsidian ]; then
-    echo "✅ Obsidian is already installed"
-    exit 0
+# Check if Flatpak is installed
+if ! command -v flatpak &> /dev/null; then
+    echo "Flatpak not found. Installing..."
+    sudo dnf install -y flatpak
 fi
 
-# Download latest Obsidian ARM64 AppImage
-echo "Downloading Obsidian ARM64 AppImage..."
-OBSIDIAN_URL="https://github.com/obsidianmd/obsidian-releases/releases/download/v1.9.10/Obsidian-1.9.10-arm64.AppImage"
-wget -q --show-progress -O ~/Applications/Obsidian.AppImage "$OBSIDIAN_URL"
+# Add Flathub if not already added
+if ! flatpak remote-list | grep -q flathub; then
+    echo "Adding Flathub repository..."
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
 
-# Make it executable
-chmod +x ~/Applications/Obsidian.AppImage
+# Install Obsidian
+echo "Installing Obsidian..."
+flatpak install -y flathub md.obsidian.Obsidian
 
-# Extract AppImage (to avoid FUSE issues)
-echo "Extracting AppImage (bypassing FUSE requirement)..."
-cd ~/Applications
-./Obsidian.AppImage --appimage-extract > /dev/null 2>&1
-
-# Create desktop entry
-echo "Creating desktop entry..."
+# Create desktop file in user applications (for better dotfiles compatibility)
 mkdir -p ~/.local/share/applications
-cat > ~/.local/share/applications/obsidian.desktop << 'EOF'
+
+# Check if desktop file already exists
+if [ ! -f ~/.local/share/applications/obsidian.desktop ]; then
+    cat > ~/.local/share/applications/obsidian.desktop << 'EOF'
 [Desktop Entry]
 Name=Obsidian
-Comment=Obsidian - A knowledge base that works on local Markdown files
-Exec=/home/corey/Applications/squashfs-root/obsidian %U
-Icon=obsidian
-Terminal=false
+Comment=Knowledge base
+Exec=flatpak run md.obsidian.Obsidian %U
+Icon=md.obsidian.Obsidian
 Type=Application
-Categories=Office;Productivity;
+Categories=Office;
 MimeType=x-scheme-handler/obsidian;
 StartupWMClass=obsidian
 EOF
-
-# Replace /home/corey with actual home directory
-sed -i "s|/home/corey|$HOME|g" ~/.local/share/applications/obsidian.desktop
-
-# Copy icon
-echo "Installing icon..."
-mkdir -p ~/.local/share/icons
-cp ~/Applications/squashfs-root/obsidian.png ~/.local/share/icons/obsidian.png
-
-# Update desktop database
-update-desktop-database ~/.local/share/applications/ 2>/dev/null || true
-
-# Clean up AppImage if extraction was successful
-if [ -f ~/Applications/squashfs-root/obsidian ]; then
-    rm -f ~/Applications/Obsidian.AppImage
-    echo "✅ Obsidian installed successfully!"
-    echo "   Launch from GNOME activities or run: ~/Applications/squashfs-root/obsidian"
-else
-    echo "❌ Installation failed - extraction unsuccessful"
-    exit 1
 fi
+
+echo "Obsidian installed successfully!"
+echo ""
+echo "Notes:"
+echo "- Disable 'Automatic Updates' in Obsidian settings (Flatpak handles updates)"
+echo "- Your vaults will be accessible from ~/Documents or wherever you store them"
+echo "- To enable Wayland support, use Flatseal and add --socket=wayland"

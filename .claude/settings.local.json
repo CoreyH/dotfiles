@@ -32,7 +32,10 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "Bash(gnome-extensions:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(git rebase:*)",
+      "Bash(git diff:*)",
+      "Bash(GIT_EDITOR=true git rebase --continue)"
     ],
     "deny": [],
     "ask": []
