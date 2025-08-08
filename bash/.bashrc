@@ -7,6 +7,16 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
+export BROWSER="/home/corey/edge-last-active.sh"
+
+# Quick Edge profile switching aliases
+alias edge1='~/set-edge-profile.sh 1'
+alias edge2='~/set-edge-profile.sh 2'
+alias edge3='~/set-edge-profile.sh 3'
+alias edge4='~/set-edge-profile.sh 4'
+alias edge5='~/set-edge-profile.sh 5'
+alias edge6='~/set-edge-profile.sh 6'
+alias edge7='~/set-edge-profile.sh 7'
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
