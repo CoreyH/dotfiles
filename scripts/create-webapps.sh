@@ -33,6 +33,10 @@ declare -A ICON_URLS=(
     ["WhatsApp"]="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
     ["YouTube"]="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
     ["X"]="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg"
+    ["Google Messages"]="https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Messages_logo.svg"
+    ["Google Photos"]="https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Photos_icon_%282020%29.svg"
+    ["Google Contacts"]="https://upload.wikimedia.org/wikipedia/commons/9/93/Google_Contacts_icon.svg"
+    ["Todoist"]="https://upload.wikimedia.org/wikipedia/en/8/8c/Todoist_2015_logo.png"
 )
 
 echo -e "${BLUE}Web Apps Creation Script${NC}"
@@ -59,17 +63,39 @@ download_icon() {
             echo "  Downloading icon for $name..."
             # Try to download and convert to PNG if needed
             if [[ "$url" == *.svg ]]; then
-                # For SVG files, we'd need to convert them
-                # For now, skip SVG icons
-                echo "    SVG conversion not implemented, skipping icon"
-                return 1
+                # Download SVG and convert to PNG
+                local temp_svg="/tmp/${name}.svg"
+                if curl -sL "$url" -o "$temp_svg" 2>/dev/null; then
+                    # Convert SVG to PNG using ImageMagick (256x256 for high quality)
+                    if command -v convert &> /dev/null; then
+                        convert -background none -resize 256x256 "$temp_svg" "$icon_file" 2>/dev/null && {
+                            echo "    ✓ Downloaded and converted SVG icon"
+                            rm -f "$temp_svg"
+                            return 0
+                        } || {
+                            echo "    Failed to convert SVG to PNG"
+                            rm -f "$temp_svg"
+                            return 1
+                        }
+                    else
+                        echo "    ImageMagick not installed, cannot convert SVG"
+                        rm -f "$temp_svg"
+                        return 1
+                    fi
+                else
+                    echo "    Failed to download SVG icon"
+                    return 1
+                fi
             else
                 curl -sL "$url" -o "$icon_file" 2>/dev/null || {
                     echo "    Failed to download icon"
                     return 1
                 }
+                echo "    ✓ Downloaded icon"
             fi
         fi
+    else
+        echo "  Icon already exists: $icon_file"
     fi
     return 0
 }
