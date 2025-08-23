@@ -188,3 +188,59 @@ fi
 export PATH="$HOME/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Starship prompt
+eval "$(starship init bash)"
+export OP_SESSION_DURATION=43200  # 12 hours
+export OP_BIOMETRIC_UNLOCK_ENABLED=false  # No Touch ID on Linux
+
+# 1Password CLI helpers
+op-login() {
+    # Sign in and set session variable
+    echo "Signing into 1Password CLI..."
+    eval $(op signin)
+    if [ $? -eq 0 ]; then
+        echo "✅ Successfully signed in to 1Password"
+        echo "Session will last 12 hours"
+    else
+        echo "❌ Sign-in failed"
+        return 1
+    fi
+}
+
+op-get() {
+    # Quick password retrieval
+    # Usage: op-get "item name"
+    if [ -z "$1" ]; then
+        echo "Usage: op-get 'item name'"
+        return 1
+    fi
+    op item get "$1" --fields password
+}
+
+op-copy() {
+    # Copy password to clipboard
+    # Usage: op-copy "item name"
+    if [ -z "$1" ]; then
+        echo "Usage: op-copy 'item name'"
+        return 1
+    fi
+    op item get "$1" --fields password | xclip -selection clipboard
+    echo "Password copied to clipboard"
+}
+
+op-list() {
+    # List all items
+    op item list --format=json | jq -r '.[].title' | sort
+}
+
+op-session-check() {
+    # Check if session is active
+    if op vault list &>/dev/null; then
+        echo "✅ 1Password session is active"
+        return 0
+    else
+        echo "❌ No active session. Run: op-login"
+        return 1
+    fi
+}

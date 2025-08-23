@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Web Apps Creation Script
-# Creates Edge-based web apps similar to webapp-manager
-# Based on existing ChatGPT.desktop configuration
+# Creates Chromium-based web apps similar to webapp-manager
+# Works on both x86_64 (Edge) and ARM64 (Chromium)
 
 set -e
 
@@ -24,6 +24,7 @@ declare -A WEBAPPS=(
     ["Google Photos"]="https://photos.google.com/"
     ["Google Contacts"]="https://contacts.google.com/"
     ["Todoist"]="https://todoist.com/"
+    ["Slack"]="https://app.slack.com/"
 )
 
 # Icon URLs (optional - will try to download if not exists)
@@ -37,20 +38,36 @@ declare -A ICON_URLS=(
     ["Google Photos"]="https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Photos_icon_%282020%29.svg"
     ["Google Contacts"]="https://upload.wikimedia.org/wikipedia/commons/9/93/Google_Contacts_icon.svg"
     ["Todoist"]="https://upload.wikimedia.org/wikipedia/en/8/8c/Todoist_2015_logo.png"
+    ["Slack"]="https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png"
 )
 
 echo -e "${BLUE}Web Apps Creation Script${NC}"
-echo -e "${YELLOW}Creating Edge-based progressive web apps${NC}"
+
+# Detect which browser to use
+if command -v microsoft-edge &> /dev/null; then
+    BROWSER_CMD="microsoft-edge"
+    BROWSER_NAME="Edge"
+    DATA_DIR="$HOME/.config/microsoft-edge-webapps"
+elif flatpak list | grep -q org.chromium.Chromium; then
+    BROWSER_CMD="flatpak run org.chromium.Chromium"
+    BROWSER_NAME="Chromium"
+    DATA_DIR="$HOME/.config/chromium-webapps"
+else
+    echo -e "${RED}Neither Edge nor Chromium found!${NC}"
+    echo "Please install Chromium: flatpak install flathub org.chromium.Chromium"
+    exit 1
+fi
+
+echo -e "${YELLOW}Creating $BROWSER_NAME-based progressive web apps${NC}"
 echo
 
 # Create directories
 APPS_DIR="$HOME/.local/share/applications"
 ICONS_DIR="$APPS_DIR/icons"
-EDGE_DATA_DIR="$HOME/.config/microsoft-edge-webapps"
 
 mkdir -p "$APPS_DIR"
 mkdir -p "$ICONS_DIR"
-mkdir -p "$EDGE_DATA_DIR"
+mkdir -p "$DATA_DIR"
 
 # Function to download icon
 download_icon() {
@@ -123,7 +140,7 @@ create_webapp() {
 Version=1.0
 Name=$name
 Comment=$name Web App
-Exec=microsoft-edge --new-window --app="$url" --class="$class_name" --user-data-dir="$EDGE_DATA_DIR/$class_name"
+Exec=$BROWSER_CMD --app="$url" --class="$class_name" --user-data-dir="$DATA_DIR/$class_name"
 Terminal=false
 Type=Application
 Icon=$icon_file
