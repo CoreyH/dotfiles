@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Web Apps Creation Script
-# Creates Edge-based web apps similar to webapp-manager
-# Based on existing ChatGPT.desktop configuration
+# Creates Chromium-based web apps similar to webapp-manager
+# Works on both x86_64 (Edge) and ARM64 (Chromium/Brave)
 
-set -e
+set -Eeuo pipefail
+trap 'echo "❌ Error at $BASH_SOURCE:$LINENO: command failed: $BASH_COMMAND"' ERR
 
 # Colors
 RED='\033[0;31m'
@@ -24,6 +25,7 @@ declare -A WEBAPPS=(
     ["Google Photos"]="https://photos.google.com/"
     ["Google Contacts"]="https://contacts.google.com/"
     ["Todoist"]="https://todoist.com/"
+    ["Slack"]="https://app.slack.com/"
 )
 
 # Icon URLs (optional - will try to download if not exists)
@@ -37,20 +39,87 @@ declare -A ICON_URLS=(
     ["Google Photos"]="https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Photos_icon_%282020%29.svg"
     ["Google Contacts"]="https://upload.wikimedia.org/wikipedia/commons/9/93/Google_Contacts_icon.svg"
     ["Todoist"]="https://upload.wikimedia.org/wikipedia/en/8/8c/Todoist_2015_logo.png"
+    ["Slack"]="https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png"
 )
 
 echo -e "${BLUE}Web Apps Creation Script${NC}"
-echo -e "${YELLOW}Creating Edge-based progressive web apps${NC}"
+
+# Function to select browser
+select_browser() {
+    local browsers=()
+    local browser_names=()
+    
+    # Check for available browsers
+    if command -v brave-browser &> /dev/null; then
+        browsers+=("brave-browser")
+        browser_names+=("Brave")
+    fi
+    
+    if command -v microsoft-edge &> /dev/null; then
+        browsers+=("microsoft-edge")
+        browser_names+=("Microsoft Edge")
+    fi
+    
+    if command -v flatpak >/dev/null && flatpak list 2>/dev/null | grep -q org.chromium.Chromium; then
+        browsers+=("flatpak run org.chromium.Chromium")
+        browser_names+=("Chromium (Flatpak)")
+    fi
+    
+    if [ ${#browsers[@]} -eq 0 ]; then
+        echo -e "${RED}No supported browsers found!${NC}"
+        echo "Please install Brave, Microsoft Edge, or Chromium"
+        exit 1
+    elif [ ${#browsers[@]} -eq 1 ]; then
+        # Only one browser available, use it
+        BROWSER_CMD="${browsers[0]}"
+        BROWSER_NAME="${browser_names[0]}"
+    else
+        # Multiple browsers available, let user choose
+        echo -e "${YELLOW}Select browser for web apps:${NC}"
+        echo
+        for i in "${!browser_names[@]}"; do
+            echo "  $((i+1))) ${browser_names[$i]}"
+        done
+        echo
+        read -p "Enter your choice (1-${#browser_names[@]}): " browser_choice
+        
+        if [[ "$browser_choice" =~ ^[0-9]+$ ]] && [ "$browser_choice" -ge 1 ] && [ "$browser_choice" -le "${#browser_names[@]}" ]; then
+            BROWSER_CMD="${browsers[$((browser_choice-1))]}"
+            BROWSER_NAME="${browser_names[$((browser_choice-1))]}"
+        else
+            echo -e "${RED}Invalid choice${NC}"
+            exit 1
+        fi
+    fi
+    
+    # Set data directory based on browser
+    case "$BROWSER_NAME" in
+        "Brave")
+            DATA_DIR="$HOME/.config/brave-webapps"
+            ;;
+        "Microsoft Edge")
+            DATA_DIR="$HOME/.config/microsoft-edge-webapps"
+            ;;
+        "Chromium (Flatpak)")
+            DATA_DIR="$HOME/.config/chromium-webapps"
+            ;;
+    esac
+}
+
+# Select browser
+select_browser
+
+echo
+echo -e "${YELLOW}Creating $BROWSER_NAME-based progressive web apps${NC}"
 echo
 
 # Create directories
 APPS_DIR="$HOME/.local/share/applications"
 ICONS_DIR="$APPS_DIR/icons"
-EDGE_DATA_DIR="$HOME/.config/microsoft-edge-webapps"
 
 mkdir -p "$APPS_DIR"
 mkdir -p "$ICONS_DIR"
-mkdir -p "$EDGE_DATA_DIR"
+mkdir -p "$DATA_DIR"
 
 # Function to download icon
 download_icon() {
@@ -123,7 +192,7 @@ create_webapp() {
 Version=1.0
 Name=$name
 Comment=$name Web App
-Exec=microsoft-edge --new-window --app="$url" --class="$class_name" --user-data-dir="$EDGE_DATA_DIR/$class_name"
+Exec=$BROWSER_CMD --app="$url" --class="$class_name" --user-data-dir="$DATA_DIR/$class_name"
 Terminal=false
 Type=Application
 Icon=$icon_file

@@ -3,9 +3,17 @@
 # Clone with: git clone https://github.com/YOUR_USERNAME/dotfiles.git
 # Run with: ./install.sh
 
-set -e  # Exit on error
+# Remove 'set -e' to continue on errors
+# set -e  # Exit on error
 
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Detect system architecture
+ARCH=$(uname -m)
+IS_ARM64=false
+if [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
+    IS_ARM64=true
+fi
 
 echo "======================================"
 echo "     Fedora Dotfiles Installer"
@@ -13,6 +21,17 @@ echo "======================================"
 echo ""
 echo "This will set up your Fedora environment from scratch."
 echo "Dotfiles directory: $DOTFILES_DIR"
+echo "System architecture: $ARCH"
+if [ "$IS_ARM64" = true ]; then
+    echo ""
+    echo "⚠️  ARM64 detected (Asahi Linux)"
+    echo "   Some x86-only packages will be skipped:"
+    echo "   - Microsoft Edge"
+    echo "   - 1Password Desktop (CLI available)"
+    echo "   - Typora (may need Flatpak version)"
+    echo "   - GitHub Desktop"
+    echo "   ✓ Cursor IDE supports ARM64"
+fi
 echo ""
 
 # ============================================
@@ -79,13 +98,26 @@ fi
 # Install third-party apps
 if [ -f "$DOTFILES_DIR/scripts/install-third-party.sh" ]; then
     echo "Installing third-party apps..."
-    bash "$DOTFILES_DIR/scripts/install-third-party.sh"
+    bash "$DOTFILES_DIR/scripts/install-third-party.sh" || echo "  ⚠ Some third-party apps failed to install (this is expected on ARM64)"
 fi
 
 # Install Typora
 if [ -f "$DOTFILES_DIR/scripts/install-typora.sh" ]; then
     echo "Installing Typora..."
-    bash "$DOTFILES_DIR/scripts/install-typora.sh"
+    bash "$DOTFILES_DIR/scripts/install-typora.sh" || echo "  ⚠ Typora installation failed (may need Flatpak version on ARM64)"
+fi
+
+# Install Cursor IDE (VS Code AI fork)
+if [ -f "$DOTFILES_DIR/scripts/install-cursor.sh" ]; then
+    echo ""
+    read -p "Install Cursor IDE (AI-powered code editor)? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Installing Cursor..."
+        bash "$DOTFILES_DIR/scripts/install-cursor.sh" || echo "  ⚠ Cursor installation failed"
+    else
+        echo "  Skipping Cursor IDE"
+    fi
 fi
 
 # Configure Flameshot if installed
@@ -362,6 +394,21 @@ echo "======================================"
 echo "        Installation Complete!"
 echo "======================================"
 echo ""
+
+# Show ARM64 compatibility notes if applicable
+if [ "$IS_ARM64" = true ]; then
+    echo "⚠️  ARM64 Compatibility Notes:"
+    echo ""
+    echo "The following packages were skipped (not available for ARM64):"
+    echo "  • Microsoft Edge - Use Firefox or Chromium instead"
+    echo "  • 1Password - Use web version or Bitwarden"
+    echo ""
+    echo "Alternatives available:"
+    echo "  • Typora - Can install via Flatpak if needed"
+    echo "  • GitHub Desktop - Flatpak version may work"
+    echo "  • VSCode - ARM64 build available from Microsoft"
+    echo ""
+fi
 
 # Show only uncompleted tasks
 UNCOMPLETED_TASKS=()

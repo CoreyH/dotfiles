@@ -129,11 +129,90 @@ These are insights gained during setup that would have been helpful from the beg
 - **Extension installation**: GNOME extensions need GUI installation first
 - **Some preferences**: Certain GNOME/app settings locked or reset on sync
 
-#### Edge Web App Desktop Files
+#### Web App Desktop Files (Edge/Brave/Chromium)
 - **Must include --class parameter**: Without `--class="AppName"`, apps won't get separate dock icons
-- **Required format**: `microsoft-edge --new-window --app="URL" --class="AppName" --user-data-dir="/path"`
+- **Required format**: `browser-command --app="URL" --class="AppName" --user-data-dir="/path"`
 - **Icon path must be absolute**: Use full path like `/home/user/.local/share/applications/icons/App.png`
 - **StartupWMClass must match --class**: Both should use the same "AppName" for proper window grouping
+- **Icon filename must match app name exactly**: Including spaces (e.g., "Gmail - Work.png" not "Gmail-Work.png")
+- **Multiple profiles for same site**: Use different app names like "Gmail - Personal" and "Gmail - Work"
+- **Brave PWA support**: Works identically to Edge, just use `brave-browser` command
+- **Script error handling**: Disable `set -e` if downloading icons to prevent script exit on failed downloads
+- **Browser selection**: Script at `~/dotfiles/scripts/create-webapps.sh` supports Brave, Edge, and Chromium
+
+## Building Apps on ARM64 Fedora
+
+### AppImage Compatibility
+- **x86_64 AppImages won't run on ARM64**: Architecture mismatch causes FUSE/FEX emulator failures
+- **Solution**: Build from source or find ARM64-specific releases
+- **Common error**: "fuse: failed to open /dev/fuse: Permission denied" when trying x86_64 AppImage on ARM64
+
+### Building Tauri Apps from Source (like Claudia)
+
+#### Required System Dependencies
+```bash
+# Core development tools
+sudo dnf install -y gcc gcc-c++ make
+
+# GTK and system libraries
+sudo dnf install -y gtk3-devel glib2-devel cairo-devel pango-devel \
+  atk-devel gdk-pixbuf2-devel libsoup3-devel webkit2gtk4.1-devel \
+  librsvg2-devel openssl-devel javascriptcoregtk4.1-devel
+
+# Perl modules for OpenSSL compilation
+sudo dnf install -y perl-IPC-Cmd perl-devel perl-FindBin \
+  perl-File-Compare perl-File-Copy
+```
+
+#### Build Tools Setup
+1. **Rust**: Install via rustup, not dnf
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+   source "$HOME/.cargo/env"
+   ```
+
+2. **Bun** (JavaScript runtime): Better than npm for Tauri
+   ```bash
+   curl -fsSL https://bun.sh/install | bash
+   source ~/.bashrc
+   ```
+
+3. **Create GCC symlinks for ARM64** (Rust looks for specific names):
+   ```bash
+   mkdir -p ~/.local/bin
+   ln -s /usr/bin/gcc ~/.local/bin/aarch64-linux-gnu-gcc
+   ln -s /usr/bin/g++ ~/.local/bin/aarch64-linux-gnu-g++
+   export PATH="$HOME/.local/bin:$PATH"
+   ```
+
+#### Common Build Issues & Solutions
+- **OpenSSL fails**: Missing perl-IPC-Cmd module (install it)
+- **GTK/GLib errors**: Missing development packages (install gtk3-devel, etc.)
+- **"Can't detect appindicator"**: Non-critical for running app, only affects system tray
+- **Long build times**: First build compiles all dependencies (~5-10 minutes on ARM64)
+
+#### Creating Desktop Entries for Built Apps
+```bash
+# Create .desktop file
+cat > ~/.local/share/applications/appname.desktop << EOF
+[Desktop Entry]
+Name=AppName
+Comment=Description
+Exec=/path/to/binary
+Icon=appname
+Terminal=false
+Type=Application
+Categories=Development;
+StartupWMClass=appname
+EOF
+
+# Copy icon
+mkdir -p ~/.local/share/icons
+cp /path/to/icon.png ~/.local/share/icons/appname.png
+
+# Update desktop database
+update-desktop-database ~/.local/share/applications/
+```
 
 ## Current Status (2025-08-06)
 

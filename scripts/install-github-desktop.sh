@@ -3,7 +3,8 @@
 # GitHub Desktop Installation Script for Fedora
 # Installs the unofficial Linux port via Flatpak
 
-set -e
+# Remove set -e to continue on errors
+# set -e
 
 # Colors
 RED='\033[0;31m'
