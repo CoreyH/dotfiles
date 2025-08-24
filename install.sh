@@ -27,9 +27,9 @@ if [ "$IS_ARM64" = true ]; then
     echo "⚠️  ARM64 detected (Asahi Linux)"
     echo "   Some x86-only packages will be skipped:"
     echo "   - Microsoft Edge"
-    echo "   - 1Password Desktop (CLI available)"
     echo "   - Typora (may need Flatpak version)"
     echo "   - GitHub Desktop"
+    echo "   ✓ 1Password has native ARM64 support!"
     echo "   ✓ Cursor IDE supports ARM64"
 fi
 echo ""
@@ -95,9 +95,28 @@ if [ -f "$DOTFILES_DIR/packages/optional.txt" ]; then
     done < "$DOTFILES_DIR/packages/optional.txt"
 fi
 
-# Install third-party apps
+# Install 1Password (works on both x86_64 and ARM64!)
+echo ""
+echo "Installing 1Password (native for all architectures)..."
+if [ ! -f /opt/1Password/1password ]; then
+    if [ -f "$DOTFILES_DIR/scripts/install-1password.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/install-1password.sh"
+    fi
+else
+    echo "  ✓ 1Password already installed"
+fi
+
+# Install 1Password CLI
+if ! command -v op &> /dev/null; then
+    echo "  Installing 1Password CLI..."
+    sudo dnf install -y 1password-cli 2>/dev/null || echo "  ⚠ 1Password CLI will be available after next dnf update"
+else
+    echo "  ✓ 1Password CLI already installed"
+fi
+
+# Install other third-party apps
 if [ -f "$DOTFILES_DIR/scripts/install-third-party.sh" ]; then
-    echo "Installing third-party apps..."
+    echo "Installing other third-party apps..."
     bash "$DOTFILES_DIR/scripts/install-third-party.sh" || echo "  ⚠ Some third-party apps failed to install (this is expected on ARM64)"
 fi
 
@@ -416,7 +435,6 @@ if [ "$IS_ARM64" = true ]; then
     echo ""
     echo "The following packages were skipped (not available for ARM64):"
     echo "  • Microsoft Edge - Use Firefox or Chromium instead"
-    echo "  • 1Password - Use web version or Bitwarden"
     echo ""
     echo "Alternatives available:"
     echo "  • Typora - Can install via Flatpak if needed"
@@ -424,6 +442,7 @@ if [ "$IS_ARM64" = true ]; then
     echo "  • VSCode - ARM64 build available from Microsoft"
     echo ""
     echo "✅ ARM64 Native Apps Installed:"
+    echo "  • 1Password - Full native ARM64 support!"
     echo "  • Obsidian - Native ARM64 AppImage (extracted)"
     echo ""
 fi

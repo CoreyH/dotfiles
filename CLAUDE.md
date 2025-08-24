@@ -142,10 +142,17 @@ These are insights gained during setup that would have been helpful from the beg
 
 ## Building Apps on ARM64 Fedora
 
+### Native ARM64 Apps Available
+- **1Password**: Full native ARM64 support! Download from official site
+- **Obsidian**: Native ARM64 AppImage available
+- **Cursor IDE**: ARM64 builds available
+- **VSCode**: Microsoft provides ARM64 builds
+
 ### AppImage Compatibility
 - **x86_64 AppImages won't run on ARM64**: Architecture mismatch causes FUSE/FEX emulator failures
 - **Solution**: Build from source or find ARM64-specific releases
 - **Common error**: "fuse: failed to open /dev/fuse: Permission denied" when trying x86_64 AppImage on ARM64
+- **Workaround**: Extract AppImage with `--appimage-extract` to bypass FUSE
 
 ### Building Tauri Apps from Source (like Claudia)
 
