@@ -364,6 +364,21 @@ if command -v alacritty &> /dev/null; then
 fi
 
 # ============================================
+# STEP 6.6: Install Obsidian (ARM64)
+# ============================================
+if [ "$IS_ARM64" = true ]; then
+    if [ ! -f ~/Applications/squashfs-root/obsidian ]; then
+        echo ""
+        echo "[6.6/8] Installing Obsidian for ARM64..."
+        if [ -f "$DOTFILES_DIR/scripts/install-obsidian.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/install-obsidian.sh"
+        fi
+    else
+        echo "  ✓ Obsidian already installed"
+    fi
+fi
+
+# ============================================
 # STEP 7: Create Helper Scripts
 # ============================================
 echo ""
@@ -407,6 +422,9 @@ if [ "$IS_ARM64" = true ]; then
     echo "  • Typora - Can install via Flatpak if needed"
     echo "  • GitHub Desktop - Flatpak version may work"
     echo "  • VSCode - ARM64 build available from Microsoft"
+    echo ""
+    echo "✅ ARM64 Native Apps Installed:"
+    echo "  • Obsidian - Native ARM64 AppImage (extracted)"
     echo ""
 fi
 
