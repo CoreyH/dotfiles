@@ -4,7 +4,7 @@
 # Creates Chromium-based web apps similar to webapp-manager
 # Works on both x86_64 (Edge) and ARM64 (Chromium)
 
-set -e
+# set -e  # Disabled to allow script to continue if icon downloads fail
 
 # Colors
 RED='\033[0;31m'
@@ -43,21 +43,72 @@ declare -A ICON_URLS=(
 
 echo -e "${BLUE}Web Apps Creation Script${NC}"
 
-# Detect which browser to use
-if command -v microsoft-edge &> /dev/null; then
-    BROWSER_CMD="microsoft-edge"
-    BROWSER_NAME="Edge"
-    DATA_DIR="$HOME/.config/microsoft-edge-webapps"
-elif flatpak list | grep -q org.chromium.Chromium; then
-    BROWSER_CMD="flatpak run org.chromium.Chromium"
-    BROWSER_NAME="Chromium"
-    DATA_DIR="$HOME/.config/chromium-webapps"
-else
-    echo -e "${RED}Neither Edge nor Chromium found!${NC}"
-    echo "Please install Chromium: flatpak install flathub org.chromium.Chromium"
-    exit 1
-fi
+# Function to select browser
+select_browser() {
+    local browsers=()
+    local browser_names=()
+    
+    # Check for available browsers
+    if command -v brave-browser &> /dev/null; then
+        browsers+=("brave-browser")
+        browser_names+=("Brave")
+    fi
+    
+    if command -v microsoft-edge &> /dev/null; then
+        browsers+=("microsoft-edge")
+        browser_names+=("Microsoft Edge")
+    fi
+    
+    if flatpak list 2>/dev/null | grep -q org.chromium.Chromium; then
+        browsers+=("flatpak run org.chromium.Chromium")
+        browser_names+=("Chromium (Flatpak)")
+    fi
+    
+    if [ ${#browsers[@]} -eq 0 ]; then
+        echo -e "${RED}No supported browsers found!${NC}"
+        echo "Please install Brave, Microsoft Edge, or Chromium"
+        exit 1
+    elif [ ${#browsers[@]} -eq 1 ]; then
+        # Only one browser available, use it
+        BROWSER_CMD="${browsers[0]}"
+        BROWSER_NAME="${browser_names[0]}"
+    else
+        # Multiple browsers available, let user choose
+        echo -e "${YELLOW}Select browser for web apps:${NC}"
+        echo
+        for i in "${!browser_names[@]}"; do
+            echo "  $((i+1))) ${browser_names[$i]}"
+        done
+        echo
+        read -p "Enter your choice (1-${#browser_names[@]}): " browser_choice
+        
+        if [[ "$browser_choice" =~ ^[0-9]+$ ]] && [ "$browser_choice" -ge 1 ] && [ "$browser_choice" -le "${#browser_names[@]}" ]; then
+            BROWSER_CMD="${browsers[$((browser_choice-1))]}"
+            BROWSER_NAME="${browser_names[$((browser_choice-1))]}"
+        else
+            echo -e "${RED}Invalid choice${NC}"
+            exit 1
+        fi
+    fi
+    
+    # Set data directory based on browser
+    case "$BROWSER_NAME" in
+        "Brave")
+            DATA_DIR="$HOME/.config/brave-webapps"
+            ;;
+        "Microsoft Edge")
+            DATA_DIR="$HOME/.config/microsoft-edge-webapps"
+            ;;
+        "Chromium (Flatpak)")
+            DATA_DIR="$HOME/.config/chromium-webapps"
+            ;;
+    esac
+}
 
+# Select browser
+select_browser
+
+echo
 echo -e "${YELLOW}Creating $BROWSER_NAME-based progressive web apps${NC}"
 echo
 
