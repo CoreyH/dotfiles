@@ -2,9 +2,10 @@
 
 # Web Apps Creation Script
 # Creates Chromium-based web apps similar to webapp-manager
-# Works on both x86_64 (Edge) and ARM64 (Chromium)
+# Works on both x86_64 (Edge) and ARM64 (Chromium/Brave)
 
-# set -e  # Disabled to allow script to continue if icon downloads fail
+set -Eeuo pipefail
+trap 'echo "❌ Error at $BASH_SOURCE:$LINENO: command failed: $BASH_COMMAND"' ERR
 
 # Colors
 RED='\033[0;31m'
@@ -59,7 +60,7 @@ select_browser() {
         browser_names+=("Microsoft Edge")
     fi
     
-    if flatpak list 2>/dev/null | grep -q org.chromium.Chromium; then
+    if command -v flatpak >/dev/null && flatpak list 2>/dev/null | grep -q org.chromium.Chromium; then
         browsers+=("flatpak run org.chromium.Chromium")
         browser_names+=("Chromium (Flatpak)")
     fi
