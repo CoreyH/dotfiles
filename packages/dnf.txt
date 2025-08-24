@@ -5,6 +5,7 @@ vim
 htop
 gnome-tweaks
 gnome-extensions-app
+gnome-shell-extension-workspace-indicator
 onedrive
 stow
 gh
