@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rpm:*)",
+      "Bash(flatpak list:*)",
+      "Bash(snap list:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "/usr/share/applications",
+      "/home/corey/.local/share/applications"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flatpak search:*)",
+      "Bash(flatpak remote-list:*)",
+      "Bash(flatpak install:*)",
+      "Bash(curl:*)",
+      "Bash(update-desktop-database:*)",
+      "Bash(sudo dnf install:*)",
+      "Bash(flatpak run:*)",
+      "Bash(dnf search:*)",
+      "Bash(dnf list:*)",
+      "Bash(rpm:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(xrandr:*)",
+      "Read(//sys/class/drm/**)",
+      "Read(//sys/firmware/devicetree/base/chosen/**)",
+      "Bash(gsettings list-schemas:*)",
+      "Read(//etc/**)",
+      "Bash(gsettings set:*)",
+      "Bash(sed:*)",
+      "Bash(gsettings reset:*)",
+      "Bash(gsettings:*)",
+      "Bash(gnome-extensions list:*)",
+      "Bash(dconf list:*)",
+      "Bash(dconf read:*)",
+      "Bash(dconf write:*)",
+      "Bash(gnome-extensions show:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(gnome-extensions:*)",
+      "Bash(chmod:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

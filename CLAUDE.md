@@ -1,5 +1,51 @@
 # Corey's Fedora Environment Setup
 
+> Note: Live status and daily changes moved to STATUS.md. This doc stays evergreen and concise.
+
+## Table of Contents
+- Quick Start
+- Current Environment
+- Useful Commands
+- Setup Guide (Edge, 1Password, Volta, Extensions, OneDrive)
+- Web Apps (Edge PWAs)
+- Multi‑Machine Sync Strategy
+- Key Learnings & Decisions
+- Building Apps on ARM64 Fedora
+- Troubleshooting
+
+## Quick Start
+```bash
+# Prereqs
+sudo dnf install -y gh desktop-file-utils
+gh auth login --web
+
+# Clone dotfiles (choose one)
+gh repo clone <owner>/dotfiles ~/dotfiles
+# or
+git clone git@github.com:<owner>/dotfiles.git ~/dotfiles
+
+cd ~/dotfiles
+./install.sh
+
+# Optional but recommended
+./scripts/install-volta.sh
+source ~/.bashrc
+./scripts/install-claude-code.sh
+
+# GNOME extensions and clipboard manager
+./scripts/setup-extensions.sh
+./scripts/setup-clipboard-manager.sh
+
+# OneDrive
+onedrive            # authenticate
+onedrive --sync --resync
+systemctl --user enable --now onedrive
+systemctl --user status onedrive --no-pager
+
+# Edge profiles and PWAs
+./scripts/configure-edge-profiles.sh
+```
+
 ## Current Environment
 - **OS**: Fedora Linux 42
 - **Desktop Environment**: GNOME with Dash to Panel extension
@@ -35,6 +81,75 @@ gnome-extensions list
 gnome-extensions prefs [extension-name]
 ```
 
+## Setup Guide
+
+### Install Microsoft Edge (RPM)
+```bash
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[microsoft-edge]\nname=Microsoft Edge\nbaseurl=https://packages.microsoft.com/yumrepos/edge\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/microsoft-edge.repo'
+sudo dnf install -y microsoft-edge-stable
+```
+
+### Install 1Password (RPM)
+```bash
+sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+sudo sh -c 'cat << REPO > /etc/yum.repos.d/1password.repo
+[1password]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/rpm/stable/
+enabled=1
+gpgcheck=1
+gpgkey=https://downloads.1password.com/linux/keys/1password.asc
+repo_gpgcheck=1
+REPO'
+sudo dnf install -y 1password 1password-cli
+```
+
+### Desktop File Utilities
+```bash
+sudo dnf install -y desktop-file-utils
+# Needed for update-desktop-database
+```
+
+### Claude Code + Volta
+```bash
+./scripts/install-volta.sh
+source ~/.bashrc
+./scripts/install-claude-code.sh
+```
+
+### GNOME Extensions
+```bash
+./scripts/setup-extensions.sh
+```
+
+### Clipboard Manager (Super+V)
+```bash
+./scripts/setup-clipboard-manager.sh
+```
+
+### OneDrive (abraunegg client)
+```bash
+sudo dnf install -y onedrive
+onedrive                 # authenticate
+onedrive --sync --resync
+systemctl --user enable --now onedrive
+systemctl --user status onedrive --no-pager
+journalctl --user -u onedrive --since today --no-pager
+```
+
+## Web Apps (Edge PWAs)
+- Include `--class` for separate dock icons
+- Required format: `browser --app="URL" --class="AppName" --user-data-dir="/path"`
+- Icon path must be absolute; `StartupWMClass` must match `--class`
+- `update-desktop-database` requires `desktop-file-utils`
+
+Example mapping `WM_CLASS` to `StartupWMClass`:
+```bash
+xprop WM_CLASS   # click the target window
+# Use the first returned value (exact case) as StartupWMClass
+```
+
 ## Multi-Machine Sync Strategy
 
 ### File Syncing (Tiered Approach)
@@ -57,6 +172,8 @@ gnome-extensions prefs [extension-name]
   onedrive --sync          # Manual sync
   onedrive --monitor       # Real-time monitoring
   systemctl --user enable onedrive  # Auto-sync service
+  systemctl --user status onedrive --no-pager
+  journalctl --user -u onedrive --since today --no-pager
   ```
 - **Scripts created**:
   - `~/setup-onedrive.sh` - Initial setup helper
@@ -137,7 +254,7 @@ These are insights gained during setup that would have been helpful from the beg
 - **Icon filename must match app name exactly**: Including spaces (e.g., "Gmail - Work.png" not "Gmail-Work.png")
 - **Multiple profiles for same site**: Use different app names like "Gmail - Personal" and "Gmail - Work"
 - **Brave PWA support**: Works identically to Edge, just use `brave-browser` command
-- **Script error handling**: Disable `set -e` if downloading icons to prevent script exit on failed downloads
+- **Script error handling**: Use `set -Eeuo pipefail`; guard non‑critical steps (e.g., icon downloads)
 - **Browser selection**: Script at `~/dotfiles/scripts/create-webapps.sh` supports Brave, Edge, and Chromium
 
 ## Building Apps on ARM64 Fedora
@@ -152,6 +269,7 @@ These are insights gained during setup that would have been helpful from the beg
 - **x86_64 AppImages won't run on ARM64**: Architecture mismatch causes FUSE/FEX emulator failures
 - **Solution**: Build from source or find ARM64-specific releases
 - **Common error**: "fuse: failed to open /dev/fuse: Permission denied" when trying x86_64 AppImage on ARM64
+- **Install deps**: `sudo dnf install -y fuse fuse3` (some AppImages still require FUSE v2)
 - **Workaround**: Extract AppImage with `--appimage-extract` to bypass FUSE
 
 ### Building Tauri Apps from Source (like Claudia)
@@ -221,76 +339,34 @@ cp /path/to/icon.png ~/.local/share/icons/appname.png
 update-desktop-database ~/.local/share/applications/
 ```
 
-## Current Status (2025-08-06)
-
-### Completed Today
-- ✅ Fixed CLAUDE.md synchronization (symlinked to dotfiles)
-- ✅ Created comprehensive Edge setup documentation and scripts
-- ✅ Added Edge profile configuration to fedora-config menu
-- ✅ Documented RPM vs Flatpak installation requirements for 1Password
-- ✅ Added Claude Code installation to dotfiles
-- ✅ Configured Windows-style keyboard shortcuts
-
-### Keyboard Shortcuts
-- Using Windows-style shortcuts (Alt+F4, Super+D, Super+E, etc.)
-- Script: `scripts/setup-windows-shortcuts.sh`
-- Documentation: `docs/keyboard-shortcuts.md`
-- Most important shortcuts already match Windows defaults
-
-### Claude Code Updates with Volta
-- **Issue**: Claude Code self-updates but Volta registry doesn't reflect new version
-- **Solution**: Run `~/dotfiles/scripts/update-claude-code.sh` to sync
-- **How it works**: 
-  1. Claude Code updates itself in-place
-  2. Script runs `claude update` then `volta install @anthropic-ai/claude-code@latest`
-  3. This syncs Volta's registry with the actual installed version
-
-### Remaining Tasks
-- Set up NAS mounting for cold storage access
-- Test complete multi-machine sync workflow
-- Answer remaining setup questions in `fedora-setup-questions.md`
+## Current Status
+Moved to STATUS.md
 
 ## Quick Reference
 
 ### Replicate on New Machine
 ```bash
-# Install gh and authenticate
-sudo dnf install -y gh
+sudo dnf install -y gh desktop-file-utils
 gh auth login --web
 
-# Clone and install
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-chmod +x install.sh  # Only if needed
-./install.sh
+# Clone (pick one)
+gh repo clone <owner>/dotfiles ~/dotfiles
+# or
+git clone git@github.com:<owner>/dotfiles.git ~/dotfiles
 
-# Choose and setup prompt
-./scripts/setup-prompt.sh  # Choose Starship (recommended)
-source ~/.bashrc
+cd ~/dotfiles && ./install.sh
 
-# Setup Alacritty (if using)
-./scripts/setup-alacritty.sh
-
-# Install Claude Code (optional but recommended)
-./scripts/install-volta.sh
-source ~/.bashrc
-volta install @anthropic-ai/claude-code
-# Or use: ./scripts/install-claude-code.sh
-
-# Install and configure GNOME extensions
-# Use Extension Manager to install Dash to Panel and Auto Move Windows
-~/dotfiles/scripts/setup-extensions.sh
-
-# Set up clipboard manager (Windows-style Super+V)
+# Optional
+./scripts/install-volta.sh && source ~/.bashrc
+./scripts/install-claude-code.sh
+./scripts/setup-extensions.sh
 ./scripts/setup-clipboard-manager.sh
-# Log out and back in
 
-# Set up OneDrive
-onedrive  # Authenticate
-onedrive --sync --resync
+# OneDrive
+onedrive && onedrive --sync --resync
 systemctl --user enable --now onedrive
 
-# Configure Edge profiles
+# Edge
 ./scripts/configure-edge-profiles.sh
 ```
 
@@ -309,4 +385,20 @@ sudo dnf install -y new-package
 echo "new-package" >> ~/dotfiles/packages/dnf.txt
 cd ~/dotfiles
 git add -A && git commit -m "Add new-package" && git push
+```
+
+## GNOME Settings (dconf)
+Repository dumps: `gnome/*.ini`.
+```bash
+# Dump current settings
+dconf dump / > ~/dotfiles/gnome/full-dump.ini
+
+# Load curated essentials from repo
+dconf load / < ~/dotfiles/gnome/essential-settings.ini
+```
+
+## ARM64 Notes
+If `webkit2gtk4.1-devel` isn’t available:
+```bash
+dnf search webkit2gtk | rg -i devel
 ```
