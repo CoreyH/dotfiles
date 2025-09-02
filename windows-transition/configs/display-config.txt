@@ -1,0 +1,28 @@
+
+Active                        : True
+DisplayTransferCharacteristic : 120
+InstanceName                  : DISPLAY\GBT3209\5&4d68f61&0&UID4352_0
+MaxHorizontalImageSize        : 70
+MaxVerticalImageSize          : 39
+SupportedDisplayFeatures      : WmiMonitorSupportedDisplayFeatures
+VideoInputType                : 1
+PSComputerName                : 
+
+Active                        : True
+DisplayTransferCharacteristic : 120
+InstanceName                  : DISPLAY\SAM0C4D\5&4d68f61&0&UID4354_0
+MaxHorizontalImageSize        : 61
+MaxVerticalImageSize          : 35
+SupportedDisplayFeatures      : WmiMonitorSupportedDisplayFeatures
+VideoInputType                : 1
+PSComputerName                : 
+
+Active                        : True
+DisplayTransferCharacteristic : 120
+InstanceName                  : DISPLAY\SAM0C4D\5&4d68f61&0&UID4357_0
+MaxHorizontalImageSize        : 61
+MaxVerticalImageSize          : 35
+SupportedDisplayFeatures      : WmiMonitorSupportedDisplayFeatures
+VideoInputType                : 1
+PSComputerName                : 
+
