@@ -1,0 +1,59 @@
+
+Name                           Value
+----                           -----
+3DVPATH                        C:\AMD\Chipset_Software\Binaries\3D_V-Cache_Performance_Optimizer_Driver\
+ALLUSERSPROFILE                C:\ProgramData
+APPDATA                        C:\Users\CoreyHenderson\AppData\Roaming
+AZ_ENABLED                     False
+ChocolateyInstall              C:\ProgramData\chocolatey
+ChocolateyLastPathUpdate       133984347775301451
+ChocolateyToolsLocation        C:\tools
+CommonProgramFiles             C:\Program Files\Common Files
+CommonProgramFiles(x86)        C:\Program Files (x86)\Common Files
+CommonProgramW6432             C:\Program Files\Common Files
+COMPUTERNAME                   COREYX3D
+ComSpec                        C:\WINDOWS\system32\cmd.exe
+CONDA_PROMPT_MODIFIER          False
+CUDA_PATH                      C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+CUDA_PATH_V12_6                C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+DriverData                     C:\Windows\System32\Drivers\DriverData
+HOMEDRIVE                      C:
+HOMEPATH                       \Users\CoreyHenderson
+LOCALAPPDATA                   C:\Users\CoreyHenderson\AppData\Local
+LOGONSERVER                    \\COREYX3D
+NUMBER_OF_PROCESSORS           32
+NVM_HOME                       C:\Users\CoreyHenderson\AppData\Roaming\nvm
+NVM_SYMLINK                    C:\Program Files\nodejs
+OneDrive                       C:\Users\CoreyHenderson\OneDrive - personal
+OneDriveCommercial             C:\Users\CoreyHenderson\OneDrive - personal
+OPENSSL_CONF                   C:\Program Files\OpenSSL-Win64\bin\openssl.cfg
+OS                             Windows_NT
+Path                           C:\Program Files\PowerShell\7;C:\Program Files\NVIDIA\CUDNN\v9.6\bin;C:\Program Files\NV…
+PATHEXT                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+POSH_GIT_ENABLED               False
+POWERLINE_COMMAND              oh-my-posh
+POWERSHELL_DISTRIBUTION_CHANN… MSI:Windows 10 Pro
+PROCESSOR_ARCHITECTURE         AMD64
+PROCESSOR_IDENTIFIER           AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD
+PROCESSOR_LEVEL                25
+PROCESSOR_REVISION             6102
+ProgramData                    C:\ProgramData
+ProgramFiles                   C:\Program Files
+ProgramFiles(x86)              C:\Program Files (x86)
+ProgramW6432                   C:\Program Files
+PSModulePath                   C:\Users\CoreyHenderson\OneDrive - personal\Documents\PowerShell\Modules;C:\Program File…
+PUBLIC                         C:\Users\Public
+SESSIONNAME                    Console
+SystemDrive                    C:
+SystemRoot                     C:\WINDOWS
+TEMP                           C:\Users\COREYH~1\AppData\Local\Temp
+TMP                            C:\Users\COREYH~1\AppData\Local\Temp
+USERDOMAIN                     AzureAD
+USERDOMAIN_ROAMINGPROFILE      AzureAD
+USERNAME                       CoreyHenderson
+USERPROFILE                    C:\Users\CoreyHenderson
+windir                         C:\WINDOWS
+WSLENV                         WT_SESSION:WT_PROFILE_ID:
+WT_PROFILE_ID                  {574e775e-4f2a-5b96-ac1e-a2962a402336}
+WT_SESSION                     ed1bbcba-e1ee-442f-a6a2-a940690a2780
+

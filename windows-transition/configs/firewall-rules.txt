@@ -1,0 +1,388 @@
+
+DisplayName
+-----------                                                                                                             
+Wi-Fi Direct Spooler Use (Out)                                                                                          
+Network Discovery (SSDP-Out)                                                                                            
+Network Discovery (WSD Events-Out)                                                                                      
+Wi-Fi Direct Spooler Use (In)                                                                                           
+Remote Assistance (TCP-Out)                                                                                             
+Core Networking - Packet Too Big (ICMPv6-Out)                                                                           
+Connected Devices Platform (UDP-Out)                                                                                    
+Core Networking - IPv6 (IPv6-In)                                                                                        
+Connected Devices Platform - Wi-Fi Direct Transport (TCP-Out)                                                           
+mDNS (UDP-Out)                                                                                                          
+Delivery Optimization (UDP-In)                                                                                          
+Core Networking - Parameter Problem (ICMPv6-Out)                                                                        
+Core Networking - Router Advertisement (ICMPv6-In)                                                                      
+Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)                                              
+Core Networking - Dynamic Host Configuration Protocol (DHCP-In)                                                         
+Network Discovery (WSD-In)                                                                                              
+Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)                                               
+Network Discovery for Teredo (SSDP-In)                                                                                  
+Connected Devices Platform (TCP-Out)                                                                                    
+Wi-Fi Direct Scan Service Use (In)                                                                                      
+Network Discovery (WSD-In)                                                                                              
+Core Networking - Router Solicitation (ICMPv6-Out)                                                                      
+Remote Assistance (SSDP UDP-Out)                                                                                        
+Remote Assistance (SSDP TCP-Out)                                                                                        
+Network Discovery (WSD Events-In)                                                                                       
+Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)                                                           
+Remote Assistance (DCOM-In)                                                                                             
+Network Discovery (UPnP-Out)                                                                                            
+Network Discovery (WSD EventsSecure-In)                                                                                 
+Remote Assistance (RA Server TCP-In)                                                                                    
+Network Discovery (UPnP-In)                                                                                             
+Core Networking - Multicast Listener Report v2 (ICMPv6-Out)                                                             
+Microsoft Media Foundation Network Source IN [UDP 5004-5009]                                                            
+Windows Device Management Enrollment Service (TCP out)                                                                  
+mDNS (UDP-Out)                                                                                                          
+Delivery Optimization (TCP-In)                                                                                          
+Core Networking - Multicast Listener Done (ICMPv6-Out)                                                                  
+Windows Device Management Certificate Installer (TCP out)                                                               
+Core Networking - Teredo (UDP-Out)                                                                                      
+Core Networking - Router Solicitation (ICMPv6-In)                                                                       
+Wireless Display Infrastructure Back Channel (TCP-In)                                                                   
+Network Discovery (Pub-WSD-In)                                                                                          
+Core Networking - Group Policy (LSASS-Out)                                                                              
+Recommended Troubleshooting Client (HTTP/HTTPS Out)                                                                     
+Remote Assistance (PNRP-In)                                                                                             
+DIAL protocol server (HTTP-In)                                                                                          
+Network Discovery (Pub WSD-Out)                                                                                         
+Wireless Display (TCP-Out)                                                                                              
+Wireless Display (UDP-Out)                                                                                              
+Remote Assistance (RA Server TCP-Out)                                                                                   
+Core Networking - Router Advertisement (ICMPv6-Out)                                                                     
+Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)                                                          
+Core Networking - IPHTTPS (TCP-Out)                                                                                     
+Microsoft Media Foundation Network Source IN [TCP 554]                                                                  
+Core Networking - Internet Group Management Protocol (IGMP-Out)                                                         
+Network Discovery (NB-Name-In)                                                                                          
+Core Networking - Parameter Problem (ICMPv6-In)                                                                         
+Core Networking - DNS (UDP-Out)                                                                                         
+Network Discovery (NB-Datagram-Out)                                                                                     
+Core Networking - Teredo (UDP-In)                                                                                       
+Microsoft Media Foundation Network Source OUT [TCP ALL]                                                                 
+Core Networking - Neighbor Discovery Advertisement (ICMPv6-Out)                                                         
+AllJoyn Router (UDP-Out)                                                                                                
+Windows Device Management Device Enroller (TCP out)                                                                     
+Core Networking - Multicast Listener Query (ICMPv6-Out)                                                                 
+Remote Assistance (SSDP UDP-In)                                                                                         
+Network Discovery (LLMNR-UDP-Out)                                                                                       
+Network Discovery for Teredo (UPnP-In)                                                                                  
+Core Networking - Time Exceeded (ICMPv6-Out)                                                                            
+Network Discovery (SSDP-In)                                                                                             
+Connected Devices Platform (UDP-In)                                                                                     
+Connected Devices Platform (TCP-In)                                                                                     
+mDNS (UDP-In)                                                                                                           
+AllJoyn Router (TCP-Out)                                                                                                
+Proximity sharing over TCP (TCP sharing-Out)                                                                            
+Network Discovery (LLMNR-UDP-In)                                                                                        
+Core Networking - Multicast Listener Report (ICMPv6-Out)                                                                
+Wi-Fi Direct Network Discovery (Out)                                                                                    
+Core Networking - Packet Too Big (ICMPv6-In)                                                                            
+Core Networking - Dynamic Host Configuration Protocol (DHCP-Out)                                                        
+Core Networking - IPHTTPS (TCP-In)                                                                                      
+AllJoyn Router (TCP-In)                                                                                                 
+AllJoyn Router (UDP-In)                                                                                                 
+Remote Assistance (PNRP-Out)                                                                                            
+Core Networking - Multicast Listener Done (ICMPv6-In)                                                                   
+Connected User Experiences and Telemetry                                                                                
+Core Networking - Destination Unreachable (ICMPv6-In)                                                                   
+Wi-Fi Direct Scan Service Use (Out)                                                                                     
+Network Discovery (NB-Datagram-In)                                                                                      
+Connected Devices Platform - Wi-Fi Direct Transport (TCP-In)                                                            
+mDNS (UDP-Out)                                                                                                          
+Core Networking - Neighbor Discovery Solicitation (ICMPv6-Out)                                                          
+Wi-Fi Direct Network Discovery (In)                                                                                     
+Wireless Display (TCP-In)                                                                                               
+Core Networking - IPv6 (IPv6-Out)                                                                                       
+Network Discovery (WSD EventsSecure-Out)                                                                                
+Remote Assistance (SSDP TCP-In)                                                                                         
+Proximity sharing over TCP (TCP sharing-In)                                                                             
+Core Networking - Internet Group Management Protocol (IGMP-In)                                                          
+Core Networking - Group Policy (NP-Out)                                                                                 
+Core Networking - Multicast Listener Report v2 (ICMPv6-In)                                                              
+Network Discovery (WSD-Out)                                                                                             
+Core Networking - Multicast Listener Query (ICMPv6-In)                                                                  
+Windows Device Management Sync Client (TCP out)                                                                         
+Core Networking - Multicast Listener Report (ICMPv6-In)                                                                 
+DIAL protocol server (HTTP-In)                                                                                          
+Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)                                              
+Core Networking - Time Exceeded (ICMPv6-In)                                                                             
+mDNS (UDP-In)                                                                                                           
+Remote Assistance (TCP-In)                                                                                              
+Network Discovery (UPnPHost-Out)                                                                                        
+Network Discovery (NB-Name-Out)                                                                                         
+Core Networking - Group Policy (TCP-Out)                                                                                
+mDNS (UDP-In)                                                                                                           
+Cast to Device functionality (qWave-TCP-Out)                                                                            
+Cast to Device streaming server (RTCP-Streaming-In)                                                                     
+Cast to Device streaming server (RTP-Streaming-Out)                                                                     
+Cast to Device streaming server (RTP-Streaming-Out)                                                                     
+Cast to Device streaming server (RTCP-Streaming-In)                                                                     
+Cast to Device streaming server (RTSP-Streaming-In)                                                                     
+Cast to Device functionality (qWave-UDP-In)                                                                             
+Cloud Identity (TCP-Out)                                                                                                
+Cast to Device functionality (qWave-UDP-Out)                                                                            
+Cast to Device streaming server (HTTP-Streaming-In)                                                                     
+Cast to Device functionality (qWave-TCP-In)                                                                             
+Cast to Device SSDP Discovery (UDP-In)                                                                                  
+Cast to Device streaming server (RTP-Streaming-Out)                                                                     
+Cast to Device UPnP Events (TCP-In)                                                                                     
+Cast to Device streaming server (RTSP-Streaming-In)                                                                     
+Cast to Device streaming server (RTCP-Streaming-In)                                                                     
+Cast to Device streaming server (HTTP-Streaming-In)                                                                     
+Cast to Device streaming server (HTTP-Streaming-In)                                                                     
+Cast to Device streaming server (RTSP-Streaming-In)                                                                     
+Email and accounts                                                                                                      
+Desktop App Web Viewer                                                                                                  
+Desktop App Web Viewer                                                                                                  
+Windows Defender SmartScreen                                                                                            
+Your account                                                                                                            
+Your account                                                                                                            
+Microsoft Content                                                                                                       
+Microsoft Family Safety                                                                                                 
+Windows Shell Experience                                                                                                
+Print Queue                                                                                                             
+Take a Test                                                                                                             
+Xbox Game UI                                                                                                            
+NcsiUwpApp                                                                                                              
+Windows Print                                                                                                           
+Narrator                                                                                                                
+@{Microsoft.XboxGamingOverlay_2.624.1111.0_x64__8wekyb3d8bbwe?ms-resource://Microsoft.XboxGamingOverlay/resources/GameB…
+@{Microsoft.XboxGamingOverlay_2.624.1111.0_x64__8wekyb3d8bbwe?ms-resource://Microsoft.XboxGamingOverlay/resources/GameB…
+Xbox TCUI                                                                                                               
+News                                                                                                                    
+Xbox Identity Provider                                                                                                  
+Get Help                                                                                                                
+@{MicrosoftCorporationII.WindowsSubsystemForLinux_2.3.24.0_x64__8wekyb3d8bbwe?ms-resource://MicrosoftCorporationII.Wind…
+Microsoft Lync                                                                                                          
+Microsoft Lync UcMapi                                                                                                   
+@{MicrosoftWindows.Client.AIX_1000.26100.2314.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.Client.AIX/resources/…
+Docker Desktop Backend                                                                                                  
+Docker Desktop Backend                                                                                                  
+node.exe                                                                                                                
+node.exe                                                                                                                
+node.exe                                                                                                                
+node.exe                                                                                                                
+Age of Empires II DE                                                                                                    
+Age of Empires II DE                                                                                                    
+battleserver                                                                                                            
+battleserver                                                                                                            
+Windsurf                                                                                                                
+Windsurf                                                                                                                
+postman.exe                                                                                                             
+postman.exe                                                                                                             
+python.exe                                                                                                              
+python.exe                                                                                                              
+anydesk.exe                                                                                                             
+anydesk.exe                                                                                                             
+CmProxyD-d685e95d-fc09-47bd-9f00-a1b410e33bc3                                                                           
+CmProxyD-d685e95d-fc09-47bd-9f00-a1b410e33bc3                                                                           
+No Man's Sky                                                                                                            
+No Man's Sky                                                                                                            
+zoom.exe                                                                                                                
+zoom.exe                                                                                                                
+Zen Browser (C:\Program Files\Zen Browser)                                                                              
+Zen Browser (C:\Program Files\Zen Browser)                                                                              
+Microsoft 365 (Office)                                                                                                  
+Hyper-V Management Clients - WMI (DCOM-In)                                                                              
+Hyper-V Management Clients - WMI (TCP-In)                                                                               
+Hyper-V Management Clients - WMI (Async-In)                                                                             
+Hyper-V - WMI (TCP-In)                                                                                                  
+Hyper-V - WMI (Async-In)                                                                                                
+Hyper-V (REMOTE_DESKTOP_TCP_IN)                                                                                         
+Hyper-V - WMI (TCP-Out)                                                                                                 
+Hyper-V Management Clients - WMI (TCP-Out)                                                                              
+Hyper-V (MIG-TCP-In)                                                                                                    
+Hyper-V - WMI (DCOM-In)                                                                                                 
+Hyper-V (RPC-EPMAP)                                                                                                     
+Hyper-V (RPC)                                                                                                           
+Syncthing - Open Source Continuous File Synchronization                                                                 
+Syncthing - Open Source Continuous File Synchronization                                                                 
+Acrobat Notification Client                                                                                             
+Acrobat Notification Client                                                                                             
+Work or school account                                                                                                  
+Work or school account                                                                                                  
+WFD Driver-only (UDP-Out)                                                                                               
+WFD ASP Coordination Protocol (UDP-In)                                                                                  
+WFD Driver-only (TCP-In)                                                                                                
+WFD Driver-only (TCP-Out)                                                                                               
+WFD ASP Coordination Protocol (UDP-Out)                                                                                 
+WFD Driver-only (UDP-In)                                                                                                
+node.exe                                                                                                                
+node.exe                                                                                                                
+Syncthing - Open Source Continuous File Synchronization                                                                 
+Syncthing - Open Source Continuous File Synchronization                                                                 
+node.exe                                                                                                                
+node.exe                                                                                                                
+Windows Calculator                                                                                                      
+@{MicrosoftWindows.LKG.AccountsService_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.Accounts…
+@{MicrosoftWindows.LKG.DesktopSpotlight_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.Desktop…
+@{MicrosoftWindows.LKG.DesktopSpotlight_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.Desktop…
+@{MicrosoftWindows.LKG.IrisService_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.IrisService/…
+@{MicrosoftWindows.LKG.RulesEngine_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.RulesEngine/…
+@{MicrosoftWindows.LKG.SpeechRuntime_1000.26100.3775.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.SpeechRunt…
+Microsoft Remote Desktop                                                                                                
+Microsoft Remote Desktop                                                                                                
+Windows Camera                                                                                                          
+Windows Camera                                                                                                          
+Creative Cloud UI Helper                                                                                                
+Creative Cloud UI Helper                                                                                                
+Captive Portal Flow                                                                                                     
+Speedtest by Ookla                                                                                                      
+Speedtest by Ookla                                                                                                      
+Microsoft To Do                                                                                                         
+Microsoft To Do                                                                                                         
+Widgets Platform Runtime                                                                                                
+@{MicrosoftWindows.55182690.Taskbar_1000.26100.4061.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.55182690.Taskba…
+@{MicrosoftWindows.LKG.TwinSxS_1000.26100.4061.0_x64__cw5n1h2txyewy?ms-resource://MicrosoftWindows.LKG.TwinSxS/Resource…
+Windows Security                                                                                                        
+Windows Security                                                                                                        
+node.exe                                                                                                                
+node.exe                                                                                                                
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+Windows Default Lock Screen                                                                                             
+NVIDIA Control Panel                                                                                                    
+Gaming Services                                                                                                         
+Windows App                                                                                                             
+Windows App                                                                                                             
+Windows App                                                                                                             
+Adobe Native Client                                                                                                     
+Adobe Native Client                                                                                                     
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+Cursor                                                                                                                  
+Cursor                                                                                                                  
+ChatGPT                                                                                                                 
+ChatGPT                                                                                                                 
+App Installer                                                                                                           
+App Installer                                                                                                           
+Microsoft Office Outlook                                                                                                
+Microsoft Lync                                                                                                          
+Microsoft Lync UcMapi                                                                                                   
+comet.exe                                                                                                               
+comet.exe                                                                                                               
+Store Experience Host                                                                                                   
+Store Experience Host                                                                                                   
+Microsoft Edge Game Assist                                                                                              
+Windows Web Experience Pack                                                                                             
+ChatGPT                                                                                                                 
+ChatGPT                                                                                                                 
+Microsoft Store                                                                                                         
+Microsoft Store                                                                                                         
+Tailscale-Process                                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+ms-resource:ProductPkgDisplayName                                                                                       
+Start                                                                                                                   
+Start                                                                                                                   
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Click to Do (preview)                                                                                                   
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+Windows Feature Experience Pack                                                                                         
+HNS Container Networking - ICS DNS (TCP-In) - C08CB7B8-9B3C-408E-8E30-5E16A3AEB445 - 0                                  
+HNS Container Networking - DNS (UDP-In) - C08CB7B8-9B3C-408E-8E30-5E16A3AEB445 - 0                                      
+Microsoft Edge (mDNS-In)                                                                                                
+Tailscale-In                                                                                                            
+Tailscale-In                                                                                                            
+Wintoys                                                                                                                 
+Microsoft Clipchamp                                                                                                     
+Solitaire & Casual Games                                                                                                
+Solitaire & Casual Games                                                                                                
+Slack                                                                                                                   
+Slack                                                                                                                   
+Slack                                                                                                                   
+Feedback Hub                                                                                                            
+Feedback Hub                                                                                                            
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+ms-resource:AppTitle                                                                                                    
+Spotify - Music and Podcasts                                                                                            
+MSN Weather                                                                                                             
+MSN Weather                                                                                                             
+Windows Terminal                                                                                                        
+Start Experiences App                                                                                                   
+Xbox                                                                                                                    
+Xbox                                                                                                                    
+Windows Media Player                                                                                                    
+Windows Media Player                                                                                                    
+WhatsApp                                                                                                                
+WhatsApp                                                                                                                
+Microsoft Edge (mDNS-In)                                                                                                
+Microsoft Edge (mDNS-In)                                                                                                
+OfficePushNotificationsUtility                                                                                          
+Microsoft.Office.ActionsServer                                                                                          
+HNS Container Networking - ICS DNS (TCP-In) - 790E58B4-7939-4434-9358-89AE7DDBE87F - 0                                  
+HNS Container Networking - DNS (UDP-In) - 790E58B4-7939-4434-9358-89AE7DDBE87F - 0                                      
+Drobo Dashboard Service                                                                                                 
+Drobo Dashboard Service                                                                                                 
+Drobo Dashboard                                                                                                         
+Drobo Dashboard                                                                                                         
+Core Networking - Teredo (ICMPv6-In)                                                                                    
+Core Networking - Teredo (ICMPv6-Out)                                                                                   
+Microsoft Teams                                                                                                         
+Microsoft Teams                                                                                                         
+Microsoft Teams                                                                                                         
+Microsoft Teams                                                                                                         
+

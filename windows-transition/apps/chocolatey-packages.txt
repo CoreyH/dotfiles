@@ -1,0 +1,53 @@
+Chocolatey v2.5.0
+3 validations performed. 2 success(es), 1 warning(s), and 0 error(s).
+
+Validation Warnings:
+ - A pending system reboot request has been detected, however, this is
+   being ignored due to the current command 'list' being used.
+   It is recommended that you reboot at your earliest convenience.
+
+7zip 24.9.0
+7zip.install 24.9.0
+baretail 3.50.0.20120226
+beyondcompare 5.1.0.31016
+bruno 1.39.1
+chocolatey 2.5.0
+chocolatey-compatibility.extension 1.0.0
+chocolatey-core.extension 1.4.0
+chocolatey-windowsupdate.extension 1.0.5
+cinebench 2024.1.0
+coretemp 1.18.1
+crystaldiskmark 8.0.6
+deno 2.3.6
+dns-benchmark 1.3.6668.20190425
+ffmpeg 7.1.1
+filezilla 3.69.1
+geekbench 6.4.0
+geekbench6 6.4.0
+git 2.49.0
+git.install 2.49.0
+hwmonitor 1.56.0.20250209
+KB2919355 1.0.20160915
+KB2919442 1.0.20160915
+KB2999226 1.0.20181019
+KB3033929 1.0.5
+KB3035131 1.0.3
+miniconda3 4.12.0
+openssl 3.5.0
+pnggauntlet 3.1.2.20171027
+pnggauntlet.install 3.1.2.20171027
+snaketail 1.9.8
+snaketail.install 1.9.8
+syncthing 1.29.7
+typora 1.10.8
+vcredist140 14.44.35208
+vcredist2015 14.0.24215.20170201
+vcredist2017 14.16.27052
+vlc 3.0.21
+vlc.install 3.0.21
+Wget 1.21.4
+winscp 6.5.1
+winscp.install 6.5.1
+wiztree 4.26.0
+yt-dlp 2025.6.9
+44 packages installed.

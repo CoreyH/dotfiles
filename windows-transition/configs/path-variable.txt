@@ -1,0 +1,82 @@
+C:\Program Files\PowerShell\7
+C:\Program Files\NVIDIA\CUDNN\v9.6\bin
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\bin
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\libnvvp
+C:\Program Files\PowerShell\7
+C:\WINDOWS\system32
+C:\WINDOWS
+C:\WINDOWS\System32\Wbem
+C:\WINDOWS\System32\WindowsPowerShell\v1.0\
+C:\WINDOWS\System32\OpenSSH\
+C:\ProgramData\chocolatey\bin
+C:\Program Files\Tailscale\
+C:\Users\CoreyHenderson\AppData\Local\Microsoft\WindowsApps
+C:\Users\CoreyHenderson\AppData\Local\GitHubDesktop\bin
+C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin
+C:\tools\doctl
+C:\Program Files\dotnet\
+%NVM_HOME%
+%NVM_SYMLINK%
+C:\tools\miniconda3
+C:\Users\CoreyHenderson\AppData\Local\GitHubDesktop\bin
+C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin
+C:\Users\CoreyHenderson\.conda\envs\py312
+C:\Users\CoreyHenderson\.conda\envs\py312\Scripts
+C:\tools\miniconda3\Scripts
+C:\Users\CoreyHenderson\AppData\Roaming\nvm
+C:\Program Files\nodejs
+C:\Program Files\PostgreSQL\17\bin
+C:\Program Files\Microsoft SQL Server\150\Tools\Binn\
+C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\
+C:\Program Files\NVIDIA Corporation\Nsight Compute 2024.3.2\
+C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\
+C:\Program Files\Git\cmd
+C:\Program Files\Docker\Docker\resources\bin
+C:\Program Files\PowerShell\7\
+C:\Program Files\GitHub CLI\
+C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR
+C:\Program Files\NVIDIA\CUDNN\v9.6\bin
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\bin
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\libnvvp
+C:\Program Files\PowerShell\7
+C:\WINDOWS\system32
+C:\WINDOWS
+C:\WINDOWS\System32\Wbem
+C:\WINDOWS\System32\WindowsPowerShell\v1.0\
+C:\WINDOWS\System32\OpenSSH\
+C:\ProgramData\chocolatey\bin
+C:\Program Files\Tailscale\
+C:\Users\CoreyHenderson\AppData\Local\Microsoft\WindowsApps
+C:\Users\CoreyHenderson\AppData\Local\GitHubDesktop\bin
+C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin
+C:\tools\doctl
+C:\Program Files\dotnet\
+%NVM_HOME%
+%NVM_SYMLINK%
+C:\tools\miniconda3
+C:\Users\CoreyHenderson\AppData\Local\GitHubDesktop\bin
+C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin
+C:\Users\CoreyHenderson\.conda\envs\py312
+C:\Users\CoreyHenderson\.conda\envs\py312\Scripts
+C:\tools\miniconda3\Scripts
+C:\Users\CoreyHenderson\AppData\Roaming\nvm
+C:\Program Files\nodejs
+C:\Program Files\PostgreSQL\17\bin
+C:\Program Files\Microsoft SQL Server\150\Tools\Binn\
+C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\
+C:\Program Files\NVIDIA Corporation\Nsight Compute 2024.3.2\
+C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\
+C:\Program Files\Git\cmd
+C:\Program Files\Docker\Docker\resources\bin
+C:\Program Files\PowerShell\7\
+C:\Program Files\GitHub CLI\
+C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR
+<path-to-dir>
+C:\Users\CoreyHenderson\AppData\Local\Programs\cursor\resources\app\bin
+C:\Users\CoreyHenderson\AppData\Local\GitHubDesktop\bin
+C:\ProgramData\chocolatey\lib\deno
+C:\Program Files\OpenSSL-Win64\bin
+C:\Users\CoreyHenderson\.dotnet\tools
+C:\Users\CoreyHenderson\AppData\Local\Programs\Ollama
