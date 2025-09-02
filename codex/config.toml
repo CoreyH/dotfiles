@@ -1,0 +1,14 @@
+projects = { "/home/corey/dotfiles" = { trust_level = "trusted" } , "/home/corey/Documents/Main" = { trust_level = "trusted" } }
+
+[mcp_servers.todoist-mcp-server-extended]
+command = "npx"
+args = [
+  "-y",
+  "@smithery/cli@latest",
+  "run",
+  "@Chrusic/todoist-mcp-server-extended",
+  "--key",
+  "7f077163-41c0-4726-82c1-d55f0259605f",
+  "--profile",
+  "harsh-moth-QKeFTX"
+]

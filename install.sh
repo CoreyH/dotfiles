@@ -3,9 +3,17 @@
 # Clone with: git clone https://github.com/YOUR_USERNAME/dotfiles.git
 # Run with: ./install.sh
 
-set -e  # Exit on error
+# Remove 'set -e' to continue on errors
+# set -e  # Exit on error
 
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Detect system architecture
+ARCH=$(uname -m)
+IS_ARM64=false
+if [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
+    IS_ARM64=true
+fi
 
 echo "======================================"
 echo "     Fedora Dotfiles Installer"
@@ -13,6 +21,17 @@ echo "======================================"
 echo ""
 echo "This will set up your Fedora environment from scratch."
 echo "Dotfiles directory: $DOTFILES_DIR"
+echo "System architecture: $ARCH"
+if [ "$IS_ARM64" = true ]; then
+    echo ""
+    echo "⚠️  ARM64 detected (Asahi Linux)"
+    echo "   Some x86-only packages will be skipped:"
+    echo "   - Microsoft Edge"
+    echo "   - Typora (may need Flatpak version)"
+    echo "   - GitHub Desktop"
+    echo "   ✓ 1Password has native ARM64 support!"
+    echo "   ✓ Cursor IDE supports ARM64"
+fi
 echo ""
 
 # ============================================
@@ -76,16 +95,48 @@ if [ -f "$DOTFILES_DIR/packages/optional.txt" ]; then
     done < "$DOTFILES_DIR/packages/optional.txt"
 fi
 
-# Install third-party apps
+# Install 1Password (works on both x86_64 and ARM64!)
+echo ""
+echo "Installing 1Password (native for all architectures)..."
+if [ ! -f /opt/1Password/1password ]; then
+    if [ -f "$DOTFILES_DIR/scripts/install-1password.sh" ]; then
+        bash "$DOTFILES_DIR/scripts/install-1password.sh"
+    fi
+else
+    echo "  ✓ 1Password already installed"
+fi
+
+# Install 1Password CLI
+if ! command -v op &> /dev/null; then
+    echo "  Installing 1Password CLI..."
+    sudo dnf install -y 1password-cli 2>/dev/null || echo "  ⚠ 1Password CLI will be available after next dnf update"
+else
+    echo "  ✓ 1Password CLI already installed"
+fi
+
+# Install other third-party apps
 if [ -f "$DOTFILES_DIR/scripts/install-third-party.sh" ]; then
-    echo "Installing third-party apps..."
-    bash "$DOTFILES_DIR/scripts/install-third-party.sh"
+    echo "Installing other third-party apps..."
+    bash "$DOTFILES_DIR/scripts/install-third-party.sh" || echo "  ⚠ Some third-party apps failed to install (this is expected on ARM64)"
 fi
 
 # Install Typora
 if [ -f "$DOTFILES_DIR/scripts/install-typora.sh" ]; then
     echo "Installing Typora..."
-    bash "$DOTFILES_DIR/scripts/install-typora.sh"
+    bash "$DOTFILES_DIR/scripts/install-typora.sh" || echo "  ⚠ Typora installation failed (may need Flatpak version on ARM64)"
+fi
+
+# Install Cursor IDE (VS Code AI fork)
+if [ -f "$DOTFILES_DIR/scripts/install-cursor.sh" ]; then
+    echo ""
+    read -p "Install Cursor IDE (AI-powered code editor)? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Installing Cursor..."
+        bash "$DOTFILES_DIR/scripts/install-cursor.sh" || echo "  ⚠ Cursor installation failed"
+    else
+        echo "  Skipping Cursor IDE"
+    fi
 fi
 
 # Configure Flameshot if installed
@@ -332,6 +383,21 @@ if command -v alacritty &> /dev/null; then
 fi
 
 # ============================================
+# STEP 6.6: Install Obsidian (ARM64)
+# ============================================
+if [ "$IS_ARM64" = true ]; then
+    if [ ! -f ~/Applications/squashfs-root/obsidian ]; then
+        echo ""
+        echo "[6.6/8] Installing Obsidian for ARM64..."
+        if [ -f "$DOTFILES_DIR/scripts/install-obsidian.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/install-obsidian.sh"
+        fi
+    else
+        echo "  ✓ Obsidian already installed"
+    fi
+fi
+
+# ============================================
 # STEP 7: Create Helper Scripts
 # ============================================
 echo ""
@@ -362,6 +428,24 @@ echo "======================================"
 echo "        Installation Complete!"
 echo "======================================"
 echo ""
+
+# Show ARM64 compatibility notes if applicable
+if [ "$IS_ARM64" = true ]; then
+    echo "⚠️  ARM64 Compatibility Notes:"
+    echo ""
+    echo "The following packages were skipped (not available for ARM64):"
+    echo "  • Microsoft Edge - Use Firefox or Chromium instead"
+    echo ""
+    echo "Alternatives available:"
+    echo "  • Typora - Can install via Flatpak if needed"
+    echo "  • GitHub Desktop - Flatpak version may work"
+    echo "  • VSCode - ARM64 build available from Microsoft"
+    echo ""
+    echo "✅ ARM64 Native Apps Installed:"
+    echo "  • 1Password - Full native ARM64 support!"
+    echo "  • Obsidian - Native ARM64 AppImage (extracted)"
+    echo ""
+fi
 
 # Show only uncompleted tasks
 UNCOMPLETED_TASKS=()

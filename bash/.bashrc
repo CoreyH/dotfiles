@@ -188,3 +188,74 @@ fi
 export PATH="$HOME/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Starship prompt
+eval "$(starship init bash)"
+# 1Password CLI configuration
+export OP_BIOMETRIC_UNLOCK_ENABLED=false  # No Touch ID on Linux
+
+# Check for 1Password CLI dependencies
+for dep in jq; do
+    command -v "$dep" >/dev/null || echo "⚠ Missing dependency for 1Password helpers: $dep"
+done
+
+# 1Password CLI helpers
+op-login() {
+    # Sign in and get session token
+    command -v op >/dev/null || { echo "op not installed"; return 1; }
+    echo "Signing into 1Password CLI..."
+    local tok
+    tok=$(op signin --raw) || { echo "❌ Sign-in failed"; return 1; }
+    export OP_SESSION="$tok"
+    echo "✅ Successfully signed in to 1Password"
+    echo "Session active for this shell (expires after ~30 min inactivity)"
+}
+
+op-get() {
+    # Quick password retrieval
+    # Usage: op-get "item name"
+    if [ -z "$1" ]; then
+        echo "Usage: op-get 'item name'"
+        return 1
+    fi
+    op item get "$1" --fields password
+}
+
+op-copy() {
+    # Copy password to clipboard
+    # Usage: op-copy "item name"
+    [[ -z "$1" ]] && { echo "Usage: op-copy 'item name'"; return 1; }
+    local pw
+    pw=$(op item get "$1" --fields password) || return 1
+    
+    if command -v wl-copy >/dev/null; then
+        printf %s "$pw" | wl-copy
+        echo "Password copied to clipboard (Wayland)"
+    elif command -v xclip >/dev/null; then
+        printf %s "$pw" | xclip -selection clipboard
+        echo "Password copied to clipboard (X11)"
+    else
+        printf %s "$pw"
+        echo "  (install wl-clipboard or xclip for clipboard support)"
+    fi
+}
+
+op-list() {
+    # List all items
+    op item list --format=json | jq -r '.[].title' | sort
+}
+
+op-session-check() {
+    # Check if session is active
+    if op vault list &>/dev/null; then
+        echo "✅ 1Password session is active"
+        return 0
+    else
+        echo "❌ No active session. Run: op-login"
+        return 1
+    fi
+}
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
