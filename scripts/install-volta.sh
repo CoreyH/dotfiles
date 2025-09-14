@@ -31,12 +31,27 @@ curl https://get.volta.sh | bash
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# Add to bashrc if not already there
-if ! grep -q "VOLTA_HOME" "$HOME/.bashrc"; then
-    echo '' >> "$HOME/.bashrc"
-    echo '# Volta' >> "$HOME/.bashrc"
-    echo 'export VOLTA_HOME="$HOME/.volta"' >> "$HOME/.bashrc"
-    echo 'export PATH="$VOLTA_HOME/bin:$PATH"' >> "$HOME/.bashrc"
+OS="$(uname -s)"
+if [[ "$OS" == "Darwin" ]]; then
+    # Add to zprofile for macOS zsh login shells
+    if ! grep -q "VOLTA_HOME" "$HOME/.zprofile" 2>/dev/null; then
+        {
+          echo ''
+          echo '# Volta'
+          echo 'export VOLTA_HOME="$HOME/.volta"'
+          echo 'export PATH="$VOLTA_HOME/bin:$PATH"'
+        } >> "$HOME/.zprofile"
+    fi
+else
+    # Add to bashrc on Linux
+    if ! grep -q "VOLTA_HOME" "$HOME/.bashrc" 2>/dev/null; then
+        {
+          echo ''
+          echo '# Volta'
+          echo 'export VOLTA_HOME="$HOME/.volta"'
+          echo 'export PATH="$VOLTA_HOME/bin:$PATH"'
+        } >> "$HOME/.bashrc"
+    fi
 fi
 
 # Verify installation
@@ -45,7 +60,11 @@ if [ -f "$VOLTA_HOME/bin/volta" ]; then
     "$VOLTA_HOME/bin/volta" --version
     echo
     echo -e "${GREEN}Next steps:${NC}"
-    echo "  1. Restart your terminal or run: source ~/.bashrc"
+    if [[ "$OS" == "Darwin" ]]; then
+      echo "  1. Restart your terminal or run: exec zsh -l"
+    else
+      echo "  1. Restart your terminal or run: source ~/.bashrc"
+    fi
     echo "  2. Install Node.js: volta install node"
     echo "  3. Install Claude Code: volta install @anthropic-ai/claude-code"
     echo

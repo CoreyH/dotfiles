@@ -1,0 +1,21 @@
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+
+# Core CLI tools
+brew "git"
+brew "gh"
+brew "fzf"
+brew "ripgrep"
+brew "fd"
+brew "bat"
+brew "jq"
+brew "eza", args: ["--HEAD"], restart_service: :changed
+brew "starship"
+
+# Optional dev/runtime
+brew "python@3.12"
+brew "node"  # Volta recommended for managing versions
+
+# GUI apps
+cask "alacritty"
+cask "font-caskaydia-cove-nerd-font"

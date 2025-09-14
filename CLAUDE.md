@@ -1,19 +1,35 @@
-# Corey's Fedora Environment Setup
+# Corey's Cross‑Platform Environment
 
 > Note: Live status and daily changes moved to STATUS.md. This doc stays evergreen and concise.
 
+Primary goal: one consistent developer experience across macOS, Windows, and Fedora Linux. Prefer portable tools and minimal per‑OS divergence. This file captures decisions, conventions, and runbooks for agents and humans.
+
+## Principles
+- OS‑agnostic first: same commands and layout where possible.
+- Idempotent bootstraps per OS; symlinks over copies.
+- PATH hygiene: OS‑correct login init only; interactive shells don't clobber.
+- Standard runtimes: Volta for Node.js; pin per‑project.
+- Optional layers: direnv for project env/ports; Dev Containers when desired.
+
 ## Table of Contents
-- Quick Start
+- Quick Start (Cross-Platform)
+- Platform-Specific Quick Start
 - Current Environment
 - Useful Commands
-- Setup Guide (Edge, 1Password, Volta, Extensions, OneDrive)
-- Web Apps (Edge PWAs)
+- Setup Guides
 - Multi‑Machine Sync Strategy
 - Key Learnings & Decisions
-- Building Apps on ARM64 Fedora
+- Platform-Specific Notes
 - Troubleshooting
 
-## Quick Start
+## Quick Start (Cross-Platform)
+
+### Bootstraps
+- macOS: `./scripts/bootstrap-macos.sh` (zsh + Homebrew + user bins)
+- Windows: `./windows/bootstrap.ps1` (PowerShell profile + user bins)
+- Linux (Fedora or general): `./scripts/bootstrap-linux.sh` (bash + user bins)
+
+### Platform-Specific Quick Start - Fedora Linux
 ```bash
 # Prereqs
 sudo dnf install -y gh desktop-file-utils
@@ -47,10 +63,10 @@ systemctl --user status onedrive --no-pager
 ```
 
 ## Current Environment
-- **OS**: Fedora Linux 42
-- **Desktop Environment**: GNOME with Dash to Panel extension
-- **Browser**: Microsoft Edge (preferred over Firefox)
-- **Multi-computer sync**: Planning to sync across multiple machines
+- **OS**: Cross-platform (macOS Sonoma, Windows 11, Fedora Linux 42)
+- **Desktop Environment**: GNOME with Dash to Panel extension (Linux), native (macOS/Windows)
+- **Browser**: Microsoft Edge (all platforms)
+- **Multi-computer sync**: OneDrive (hot files) + NAS (cold)
 
 ## Completed Customizations
 
@@ -67,9 +83,10 @@ For apps like 1Password to appear on all virtual desktops:
    ```
 
 ## Goals & Preferences
-- Emulate best features from Windows and macOS
-- Set up consistent environment across multiple computers
-- Productivity-focused workflow
+- Consistent cross‑platform UX
+- Volta‑managed Node.js; pin versions per project
+- direnv for project‑local env (including ports)
+- Optional: Dev Containers for isolated toolchains
 
 ## Useful Commands
 ```bash
@@ -339,6 +356,11 @@ cp /path/to/icon.png ~/.local/share/icons/appname.png
 update-desktop-database ~/.local/share/applications/
 ```
 
+## Remaining Tasks
+- Add winget/scoop packages list for Windows
+- Evaluate moving more logic to language‑agnostic scripts (sh/ps1 parity)
+- Test complete multi‑machine sync workflow
+
 ## Current Status
 Moved to STATUS.md
 
@@ -398,7 +420,7 @@ dconf load / < ~/dotfiles/gnome/essential-settings.ini
 ```
 
 ## ARM64 Notes
-If `webkit2gtk4.1-devel` isn’t available:
+If `webkit2gtk4.1-devel` isn't available:
 ```bash
 dnf search webkit2gtk | rg -i devel
 ```

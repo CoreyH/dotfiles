@@ -6,6 +6,13 @@
 # Remove 'set -e' to continue on errors
 # set -e  # Exit on error
 
+# Guard: don't run Fedora installer on macOS
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "This installer targets Fedora Linux. For macOS, run:"
+    echo "  ./scripts/bootstrap-macos.sh"
+    exit 1
+fi
+
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Detect system architecture

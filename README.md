@@ -1,10 +1,10 @@
-# Corey's Fedora Dotfiles
+# Corey's Dotfiles (Fedora + macOS)
 
-My personal Fedora Workstation configuration for multi-machine setup.
+My personal workstation configuration. Originally targeting Fedora; now with macOS support.
 
 **Note**: This is a private repository for personal use.
 
-## Quick Start
+## Fedora Quick Start
 
 ```bash
 # Clone the repository
@@ -16,7 +16,7 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 ./install.sh
 ```
 
-## What's Included
+## What's Included (Fedora)
 
 - **GNOME Settings**: Dark mode, extensions, keyboard shortcuts
 - **OneDrive**: Selective sync configuration (Documents & Desktop)
@@ -38,6 +38,8 @@ chmod +x install.sh  # Only needed if executable bit wasn't preserved
 ├── onedrive/       # OneDrive sync configuration
 ├── packages/       # Package lists
 ├── scripts/        # Helper scripts
+├── zsh/            # macOS zsh configs
+├── homebrew/       # macOS Brewfile
 ├── CLAUDE.md       # AI assistant context
 └── install.sh      # Main installation script
 ```
@@ -82,7 +84,52 @@ Quick commands for common tasks:
 - `sysinfo` - System information overview
 - `prompt-switch` - Switch between prompt styles
 
-## Manual Steps After Installation
+## macOS Quick Start
+
+1) Bootstrap macOS (links zsh configs, user bin, etc.):
+
+```
+./scripts/bootstrap-macos.sh
+```
+
+2) Install recommended tools via Homebrew Bundle (optional):
+
+```
+brew bundle --file homebrew/Brewfile
+```
+
+3) Restart terminal or run `exec zsh -l`.
+
+Notes:
+- Homebrew shellenv is set in `~/.zprofile`. Interactive customizations live in `~/.zshrc`.
+- Volta is recommended for Node.js. See `scripts/migrate-nvm-to-volta.sh` if coming from nvm.
+
+## Windows Quick Start
+
+1) Bootstrap Windows (installs PowerShell profile and user bin):
+
+```
+powershell -ExecutionPolicy Bypass -File .\\windows\\bootstrap.ps1
+```
+
+2) Optional packages: install via `winget` or Scoop (not included yet).
+
+Notes:
+- PowerShell profile lives at `$PROFILE`. Repo profile is `windows/profile.ps1`.
+- Volta works on Windows; consider standardizing Node.js via Volta here too.
+- If using direnv, add it via Scoop and the profile hook will enable it.
+
+## Linux Quick Start (generic)
+
+If you want only dotfile links (not full Fedora installer):
+
+```
+./scripts/bootstrap-linux.sh
+```
+
+Then continue using distro-specific package managers as needed.
+
+## Manual Steps After Installation (Fedora)
 
 1. **Install GNOME Extensions**:
    - Open Extension Manager

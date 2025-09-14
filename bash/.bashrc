@@ -170,13 +170,15 @@ if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
     source /usr/share/fzf/shell/key-bindings.bash
 fi
 
-# Node Version Manager (if installed)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# Node.js: prefer Volta for version management across OSes
 
 # Rust (if installed)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# direnv (optional, if installed)
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook bash)"
+fi
 
 # Welcome message (only in interactive shells)
 if [[ $- == *i* ]]; then

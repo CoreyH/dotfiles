@@ -1,0 +1,15 @@
+# Example .envrc for direnv
+
+# Deny by default (direnv requires allow per directory):
+#   direnv allow
+
+# Project environment variables
+export PORT=3000
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# If you use Python or other languages, add layouts here.
+# layout python
+
+# With Volta, prefer pinning Node via package.json:
+#   volta pin node@lts
+
