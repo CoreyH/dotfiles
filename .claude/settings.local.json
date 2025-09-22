@@ -35,7 +35,20 @@
       "Bash(chmod:*)",
       "Bash(git rebase:*)",
       "Bash(git diff:*)",
-      "Bash(GIT_EDITOR=true git rebase --continue)"
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(where node)",
+      "Bash(where npx)",
+      "Bash(\"C:\\Program Files\\nodejs\\npx.cmd\" -y @smithery/cli@latest run @Chrusic/todoist-mcp-server-extended --key 7f077163-41c0-4726-82c1-d55f0259605f --profile harsh-moth-QKeFTX)",
+      "Read(C:\\Users\\CoreyHenderson\\.codex/**)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(dir node_modules@chrusictodoist-mcp-server-extended)",
+      "Bash(grep:*)",
+      "Read(C:\\Users\\CoreyHenderson\\.claude/**)",
+      "Read(C:\\Users\\CoreyHenderson/**)",
+      "Bash(claude mcp:*)",
+      "Bash(mkdir:*)",
+      "Bash(choco list:*)"
     ],
     "deny": [],
     "ask": []

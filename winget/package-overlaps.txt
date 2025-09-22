@@ -1,0 +1,44 @@
+# Package Overlaps Between Chocolatey and WinGet
+# These packages are managed by both package managers and should be migrated
+
+## Direct Overlaps (Same software, both managers can see it)
+7zip                    - Choco: 7zip/7zip.install 25.1.0, WinGet: 7zip.7zip 25.01
+beyondcompare           - Choco: beyondcompare 5.1.5.31310, WinGet: ScooterSoftware.BeyondCompare.5 5.1.5.31310
+bruno                   - Choco: bruno 2.10.1, WinGet: Bruno.Bruno 2.10.1
+git                     - Choco: git/git.install 2.51.0, WinGet: Git.Git 2.51.0
+typora                  - Choco: typora 1.11.7, WinGet: appmakes.Typora 1.11.7
+vlc                     - Choco: vlc/vlc.install 3.0.21, WinGet: VideoLAN.VLC (available)
+winscp                  - Choco: winscp/winscp.install 6.5.1/6.5.3, WinGet: WinSCP.WinSCP 6.5.3
+wiztree                 - Choco: wiztree 4.26.0, WinGet: AntibodySoftware.WizTree 4.26
+snaketail               - Choco: snaketail/snaketail.install 1.9.8, WinGet: snakefoot.snaketail 1.9.8.0
+pnggauntlet             - Choco: pnggauntlet/pnggauntlet.install 3.1.2, WinGet: BenHollis.PNGGauntlet 3.1.1
+openssl                 - Choco: openssl 3.5.2, WinGet: ShiningLight.OpenSSL.Dev 3.5.2
+miniconda3              - Choco: miniconda3 4.12.0, WinGet: Anaconda.Miniconda3 py39_4.12.0
+crystaldiskmark         - Choco: crystaldiskmark 9.0.1, WinGet: CrystalDewWorld.CrystalDiskMark 9.0.1
+hwmonitor               - Choco: hwmonitor/hwmonitor.install 1.58.0, WinGet: CPUID.HWMonitor 1.58
+filezilla               - Choco: filezilla 3.69.1, WinGet: TimKosse.FileZilla.Client
+geekbench6              - Choco: geekbench6 6.5.0, WinGet: PrimateLabs.Geekbench.6
+
+## Missing from initial analysis (now added)
+nodejs                  - Choco: nodejs/nodejs.install, Note: Using NVM for Windows instead
+obs-studio              - Choco: obs-studio, WinGet: OBSProject.OBSStudio
+handbrake               - Choco: handbrake/handbrake.install, WinGet: HandBrake.HandBrake
+
+## Chocolatey-Only Packages (Need alternatives or manual installation)
+baretail                - Log viewer, alternative: SnakeTail (already have)
+cinebench               - Benchmarking tool
+coretemp                - Temperature monitoring
+deno                    - JavaScript runtime (can get from WinGet)
+dns-benchmark           - DNS testing tool
+ffmpeg                  - Media processing (available in WinGet)
+yt-dlp                  - YouTube downloader (available in WinGet)
+syncthing               - File synchronization (available in WinGet)
+wget                    - Command-line downloader
+
+## Dependency Packages (Usually auto-managed, can be ignored)
+chocolatey              - Package manager itself
+chocolatey-compatibility.extension
+chocolatey-core.extension
+chocolatey-windowsupdate.extension
+KB2919355, KB2919442, KB2999226, KB3033929, KB3035131
+vcredist140, vcredist2015, vcredist2017

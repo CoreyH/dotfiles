@@ -1,0 +1,362 @@
+{
+  "comment": "WinGet packages to maintain across systems with extended configuration options",
+  "packages": [
+    {
+      "id": "7zip.7zip",
+      "name": "7-Zip",
+      "source": "winget"
+    },
+    {
+      "id": "ScooterSoftware.BeyondCompare.5",
+      "name": "Beyond Compare",
+      "source": "winget"
+    },
+    {
+      "id": "Bruno.Bruno",
+      "name": "Bruno API Client",
+      "source": "winget"
+    },
+    {
+      "id": "Git.Git",
+      "name": "Git",
+      "source": "winget",
+      "scope": "machine"
+    },
+    {
+      "id": "appmakes.Typora",
+      "name": "Typora",
+      "source": "winget"
+    },
+    {
+      "id": "VideoLAN.VLC",
+      "name": "VLC Media Player",
+      "source": "winget"
+    },
+    {
+      "id": "WinSCP.WinSCP",
+      "name": "WinSCP",
+      "source": "winget"
+    },
+    {
+      "id": "AntibodySoftware.WizTree",
+      "name": "WizTree",
+      "source": "winget"
+    },
+    {
+      "id": "snakefoot.snaketail",
+      "name": "SnakeTail",
+      "source": "winget"
+    },
+    {
+      "id": "BenHollis.PNGGauntlet",
+      "name": "PNGGauntlet",
+      "source": "winget"
+    },
+    {
+      "id": "ShiningLight.OpenSSL.Dev",
+      "name": "OpenSSL",
+      "source": "winget"
+    },
+    {
+      "id": "Anaconda.Miniconda3",
+      "name": "Miniconda3",
+      "source": "winget"
+    },
+    {
+      "id": "CrystalDewWorld.CrystalDiskMark",
+      "name": "CrystalDiskMark",
+      "source": "winget"
+    },
+    {
+      "id": "CPUID.HWMonitor",
+      "name": "HWMonitor",
+      "source": "winget"
+    },
+    {
+      "id": "TimKosse.FileZilla.Client",
+      "name": "FileZilla",
+      "source": "winget"
+    },
+    {
+      "id": "PrimateLabs.Geekbench.6",
+      "name": "Geekbench 6",
+      "source": "winget"
+    },
+    {
+      "id": "OBSProject.OBSStudio",
+      "name": "OBS Studio",
+      "source": "winget"
+    },
+    {
+      "id": "HandBrake.HandBrake",
+      "name": "HandBrake",
+      "source": "winget"
+    },
+    {
+      "id": "Gyan.FFmpeg",
+      "name": "FFmpeg",
+      "source": "winget"
+    },
+    {
+      "id": "yt-dlp.yt-dlp",
+      "name": "yt-dlp",
+      "source": "winget"
+    },
+    {
+      "id": "Syncthing.Syncthing",
+      "name": "Syncthing",
+      "source": "winget"
+    },
+    {
+      "id": "DenoLand.Deno",
+      "name": "Deno",
+      "source": "winget"
+    },
+    {
+      "id": "CoreyButler.NVMforWindows",
+      "name": "NVM for Windows",
+      "source": "winget",
+      "comment": "Using NVM instead of direct Node.js installation for version management"
+    },
+    {
+      "id": "Docker.DockerDesktop",
+      "name": "Docker Desktop",
+      "source": "winget",
+      "silent": false
+    },
+    {
+      "id": "PostgreSQL.PostgreSQL.17",
+      "name": "PostgreSQL",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.PowerShell",
+      "name": "PowerShell",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.VisualStudio.2022.Professional",
+      "name": "Visual Studio 2022 Professional",
+      "source": "winget",
+      "override": "--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Workload.NativeDesktop --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.Azure"
+    },
+    {
+      "id": "Microsoft.Edge",
+      "name": "Microsoft Edge",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.WindowsTerminal",
+      "name": "Windows Terminal",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.PowerToys",
+      "name": "PowerToys",
+      "source": "msstore"
+    },
+    {
+      "id": "GitHub.cli",
+      "name": "GitHub CLI",
+      "source": "winget"
+    },
+    {
+      "id": "GitHub.GitHubDesktop",
+      "name": "GitHub Desktop",
+      "source": "winget"
+    },
+    {
+      "id": "AgileBits.1Password",
+      "name": "1Password",
+      "source": "winget"
+    },
+    {
+      "id": "Anthropic.Claude",
+      "name": "Claude",
+      "source": "winget"
+    },
+    {
+      "id": "Anysphere.Cursor",
+      "name": "Cursor",
+      "source": "winget"
+    },
+    {
+      "id": "Codeium.Windsurf",
+      "name": "Windsurf",
+      "source": "winget"
+    },
+    {
+      "id": "Discord.Discord",
+      "name": "Discord",
+      "source": "winget"
+    },
+    {
+      "id": "OpenWhisperSystems.Signal",
+      "name": "Signal",
+      "source": "winget"
+    },
+    {
+      "id": "Obsidian.Obsidian",
+      "name": "Obsidian",
+      "source": "winget"
+    },
+    {
+      "id": "Notion.NotionCalendar",
+      "name": "Notion Calendar",
+      "source": "winget"
+    },
+    {
+      "id": "Postman.Postman",
+      "name": "Postman",
+      "source": "winget"
+    },
+    {
+      "id": "Zoom.Zoom",
+      "name": "Zoom",
+      "source": "winget"
+    },
+    {
+      "id": "Balena.Etcher",
+      "name": "balenaEtcher",
+      "source": "winget"
+    },
+    {
+      "id": "Google.CloudSDK",
+      "name": "Google Cloud SDK",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.AzureDataStudio",
+      "name": "Azure Data Studio",
+      "source": "winget"
+    },
+    {
+      "id": "Ollama.Ollama",
+      "name": "Ollama",
+      "source": "winget"
+    },
+    {
+      "id": "Brave.Brave",
+      "name": "Brave Browser",
+      "source": "winget"
+    },
+    {
+      "id": "Adobe.CreativeCloud",
+      "name": "Adobe Creative Cloud",
+      "source": "winget",
+      "silent": false
+    },
+    {
+      "id": "Adobe.Acrobat.Reader.64-bit",
+      "name": "Adobe Acrobat Reader",
+      "source": "winget"
+    },
+    {
+      "id": "Alacritty.Alacritty",
+      "name": "Alacritty",
+      "source": "winget"
+    },
+    {
+      "id": "Tailscale.Tailscale",
+      "name": "Tailscale",
+      "source": "winget"
+    },
+    {
+      "id": "Rem0o.FanControl",
+      "name": "FanControl",
+      "source": "winget"
+    },
+    {
+      "id": "Warp.Warp",
+      "name": "Warp Terminal",
+      "source": "winget"
+    },
+    {
+      "id": "Zidoro.Pomatez",
+      "name": "Pomatez",
+      "source": "winget"
+    },
+    {
+      "id": "Granola.Granola",
+      "name": "Granola",
+      "source": "winget"
+    },
+    {
+      "id": "Comfy.ComfyUI-Desktop",
+      "name": "ComfyUI",
+      "source": "winget"
+    },
+    {
+      "id": "ACLAP.DownloadHelperCoApp",
+      "name": "DownloadHelper CoApp",
+      "source": "winget"
+    },
+    {
+      "id": "LizardByte.Sunshine",
+      "name": "Sunshine",
+      "source": "winget"
+    },
+    {
+      "id": "NordSecurity.NordVPN",
+      "name": "NordVPN",
+      "source": "winget",
+      "silent": false
+    },
+    {
+      "id": "Zen-Team.Zen-Browser",
+      "name": "Zen Browser",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.Teams",
+      "name": "Microsoft Teams",
+      "source": "winget"
+    },
+    {
+      "id": "Nvidia.CUDA",
+      "name": "NVIDIA CUDA Toolkit",
+      "source": "winget",
+      "pin": true,
+      "comment": "Pin CUDA to prevent breaking ML toolchains"
+    },
+    {
+      "id": "Nvidia.PhysX",
+      "name": "NVIDIA PhysX",
+      "source": "winget"
+    },
+    {
+      "id": "ViGEm.ViGEmBus",
+      "name": "ViGEm Bus Driver",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.WebDeploy",
+      "name": "Microsoft Web Deploy",
+      "source": "winget"
+    },
+    {
+      "id": "Microsoft.WindowsApp",
+      "name": "Windows App",
+      "source": "winget"
+    },
+    {
+      "id": "Debian.Debian",
+      "name": "Debian WSL",
+      "source": "winget"
+    }
+  ],
+  "pins": [
+    {
+      "id": "Nvidia.CUDA",
+      "reason": "Prevent breaking ML/AI toolchains with automatic updates"
+    },
+    {
+      "id": "CoreyButler.NVMforWindows",
+      "reason": "Node version management should be explicit"
+    },
+    {
+      "id": "Microsoft.VisualStudio.2022.Professional",
+      "reason": "Visual Studio updates should be managed carefully"
+    }
+  ]
+}
